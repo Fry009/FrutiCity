@@ -30,6 +30,7 @@ powershell -ExecutionPolicy Bypass -File tools/Validate-Unity.ps1 -Action BuildW
 
 ## Documentación
 
+- [Punto de continuación: estado, recetas y siguiente paso](docs/HANDOFF.md)
 - [Auditoría del Pro Pack y decisiones de alcance](docs/PRO_PACK_AUDIT.md)
 - [Arquitectura y edición del contenido](docs/ARCHITECTURE.md)
 - [QA, dispositivos y estado de validación](docs/QA.md)
