@@ -1,0 +1,1105 @@
+{
+  "version": 1,
+  "levels": [
+    {
+      "id": "level_001",
+      "episode": 1,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 28,
+      "objective": {
+        "type": "score",
+        "targetScore": 1650
+      },
+      "obstacles": [],
+      "reward": {
+        "coins": 27,
+        "star": 0
+      },
+      "difficulty": "tutorial"
+    },
+    {
+      "id": "level_002",
+      "episode": 1,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 28,
+      "objective": {
+        "type": "collect",
+        "tile": "apple",
+        "count": 18
+      },
+      "obstacles": [],
+      "reward": {
+        "coins": 29,
+        "star": 0
+      },
+      "difficulty": "tutorial"
+    },
+    {
+      "id": "level_003",
+      "episode": 1,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 28,
+      "objective": {
+        "type": "break_boxes",
+        "count": 10
+      },
+      "obstacles": [],
+      "reward": {
+        "coins": 31,
+        "star": 0
+      },
+      "difficulty": "tutorial"
+    },
+    {
+      "id": "level_004",
+      "episode": 1,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 28,
+      "objective": {
+        "type": "clear_jam",
+        "count": 12
+      },
+      "obstacles": [],
+      "reward": {
+        "coins": 33,
+        "star": 0
+      },
+      "difficulty": "tutorial"
+    },
+    {
+      "id": "level_005",
+      "episode": 1,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 28,
+      "objective": {
+        "type": "collect",
+        "tile": "banana",
+        "count": 22
+      },
+      "obstacles": [],
+      "reward": {
+        "coins": 35,
+        "star": 1
+      },
+      "difficulty": "tutorial"
+    },
+    {
+      "id": "level_006",
+      "episode": 2,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 28,
+      "objective": {
+        "type": "score",
+        "targetScore": 2400
+      },
+      "obstacles": [
+        "box"
+      ],
+      "reward": {
+        "coins": 37,
+        "star": 0
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "level_007",
+      "episode": 2,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 28,
+      "objective": {
+        "type": "collect",
+        "tile": "apple",
+        "count": 18
+      },
+      "obstacles": [
+        "box"
+      ],
+      "reward": {
+        "coins": 39,
+        "star": 0
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "level_008",
+      "episode": 2,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 28,
+      "objective": {
+        "type": "break_boxes",
+        "count": 10
+      },
+      "obstacles": [
+        "box"
+      ],
+      "reward": {
+        "coins": 41,
+        "star": 0
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "level_009",
+      "episode": 2,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 28,
+      "objective": {
+        "type": "clear_jam",
+        "count": 12
+      },
+      "obstacles": [
+        "box"
+      ],
+      "reward": {
+        "coins": 43,
+        "star": 0
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "level_010",
+      "episode": 2,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 28,
+      "objective": {
+        "type": "collect",
+        "tile": "banana",
+        "count": 22
+      },
+      "obstacles": [
+        "box"
+      ],
+      "reward": {
+        "coins": 45,
+        "star": 1
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "level_011",
+      "episode": 3,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 26,
+      "objective": {
+        "type": "score",
+        "targetScore": 2650
+      },
+      "obstacles": [
+        "box",
+        "jam"
+      ],
+      "reward": {
+        "coins": 47,
+        "star": 0
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "level_012",
+      "episode": 3,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 26,
+      "objective": {
+        "type": "collect",
+        "tile": "apple",
+        "count": 21
+      },
+      "obstacles": [
+        "box",
+        "jam"
+      ],
+      "reward": {
+        "coins": 49,
+        "star": 0
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "level_013",
+      "episode": 3,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 26,
+      "objective": {
+        "type": "break_boxes",
+        "count": 13
+      },
+      "obstacles": [
+        "box",
+        "jam"
+      ],
+      "reward": {
+        "coins": 51,
+        "star": 0
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "level_014",
+      "episode": 3,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 26,
+      "objective": {
+        "type": "clear_jam",
+        "count": 15
+      },
+      "obstacles": [
+        "box",
+        "jam"
+      ],
+      "reward": {
+        "coins": 53,
+        "star": 0
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "level_015",
+      "episode": 3,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 26,
+      "objective": {
+        "type": "collect",
+        "tile": "banana",
+        "count": 25
+      },
+      "obstacles": [
+        "box",
+        "jam"
+      ],
+      "reward": {
+        "coins": 55,
+        "star": 1
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "level_016",
+      "episode": 4,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 26,
+      "objective": {
+        "type": "score",
+        "targetScore": 3400
+      },
+      "obstacles": [
+        "box",
+        "jam"
+      ],
+      "reward": {
+        "coins": 57,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_017",
+      "episode": 4,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 26,
+      "objective": {
+        "type": "collect",
+        "tile": "apple",
+        "count": 21
+      },
+      "obstacles": [
+        "box",
+        "jam"
+      ],
+      "reward": {
+        "coins": 59,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_018",
+      "episode": 4,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 26,
+      "objective": {
+        "type": "break_boxes",
+        "count": 13
+      },
+      "obstacles": [
+        "box",
+        "jam"
+      ],
+      "reward": {
+        "coins": 61,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_019",
+      "episode": 4,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 26,
+      "objective": {
+        "type": "clear_jam",
+        "count": 15
+      },
+      "obstacles": [
+        "box",
+        "jam"
+      ],
+      "reward": {
+        "coins": 63,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_020",
+      "episode": 4,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 26,
+      "objective": {
+        "type": "collect",
+        "tile": "banana",
+        "count": 25
+      },
+      "obstacles": [
+        "box",
+        "jam"
+      ],
+      "reward": {
+        "coins": 65,
+        "star": 1
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_021",
+      "episode": 5,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 24,
+      "objective": {
+        "type": "score",
+        "targetScore": 3650
+      },
+      "obstacles": [
+        "jam",
+        "ice"
+      ],
+      "reward": {
+        "coins": 67,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_022",
+      "episode": 5,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 24,
+      "objective": {
+        "type": "collect",
+        "tile": "apple",
+        "count": 24
+      },
+      "obstacles": [
+        "jam",
+        "ice"
+      ],
+      "reward": {
+        "coins": 69,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_023",
+      "episode": 5,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 24,
+      "objective": {
+        "type": "break_boxes",
+        "count": 16
+      },
+      "obstacles": [
+        "jam",
+        "ice"
+      ],
+      "reward": {
+        "coins": 71,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_024",
+      "episode": 5,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 24,
+      "objective": {
+        "type": "clear_jam",
+        "count": 18
+      },
+      "obstacles": [
+        "jam",
+        "ice"
+      ],
+      "reward": {
+        "coins": 73,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_025",
+      "episode": 5,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 24,
+      "objective": {
+        "type": "collect",
+        "tile": "banana",
+        "count": 28
+      },
+      "obstacles": [
+        "jam",
+        "ice"
+      ],
+      "reward": {
+        "coins": 75,
+        "star": 1
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_026",
+      "episode": 6,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 24,
+      "objective": {
+        "type": "score",
+        "targetScore": 4400
+      },
+      "obstacles": [
+        "jam",
+        "ice"
+      ],
+      "reward": {
+        "coins": 77,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_027",
+      "episode": 6,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 24,
+      "objective": {
+        "type": "collect",
+        "tile": "apple",
+        "count": 24
+      },
+      "obstacles": [
+        "jam",
+        "ice"
+      ],
+      "reward": {
+        "coins": 79,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_028",
+      "episode": 6,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 24,
+      "objective": {
+        "type": "break_boxes",
+        "count": 16
+      },
+      "obstacles": [
+        "jam",
+        "ice"
+      ],
+      "reward": {
+        "coins": 81,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_029",
+      "episode": 6,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 24,
+      "objective": {
+        "type": "clear_jam",
+        "count": 18
+      },
+      "obstacles": [
+        "jam",
+        "ice"
+      ],
+      "reward": {
+        "coins": 83,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_030",
+      "episode": 6,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 24,
+      "objective": {
+        "type": "collect",
+        "tile": "banana",
+        "count": 28
+      },
+      "obstacles": [
+        "jam",
+        "ice"
+      ],
+      "reward": {
+        "coins": 85,
+        "star": 1
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_031",
+      "episode": 7,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 22,
+      "objective": {
+        "type": "score",
+        "targetScore": 4650
+      },
+      "obstacles": [
+        "ice",
+        "root"
+      ],
+      "reward": {
+        "coins": 87,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_032",
+      "episode": 7,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 22,
+      "objective": {
+        "type": "collect",
+        "tile": "apple",
+        "count": 27
+      },
+      "obstacles": [
+        "ice",
+        "root"
+      ],
+      "reward": {
+        "coins": 89,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_033",
+      "episode": 7,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 22,
+      "objective": {
+        "type": "break_boxes",
+        "count": 19
+      },
+      "obstacles": [
+        "ice",
+        "root"
+      ],
+      "reward": {
+        "coins": 91,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_034",
+      "episode": 7,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 22,
+      "objective": {
+        "type": "clear_jam",
+        "count": 21
+      },
+      "obstacles": [
+        "ice",
+        "root"
+      ],
+      "reward": {
+        "coins": 93,
+        "star": 0
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_035",
+      "episode": 7,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 22,
+      "objective": {
+        "type": "collect",
+        "tile": "banana",
+        "count": 31
+      },
+      "obstacles": [
+        "ice",
+        "root"
+      ],
+      "reward": {
+        "coins": 95,
+        "star": 1
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "level_036",
+      "episode": 8,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 22,
+      "objective": {
+        "type": "score",
+        "targetScore": 5400
+      },
+      "obstacles": [
+        "ice",
+        "root"
+      ],
+      "reward": {
+        "coins": 97,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_037",
+      "episode": 8,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 22,
+      "objective": {
+        "type": "collect",
+        "tile": "apple",
+        "count": 27
+      },
+      "obstacles": [
+        "ice",
+        "root"
+      ],
+      "reward": {
+        "coins": 99,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_038",
+      "episode": 8,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 22,
+      "objective": {
+        "type": "break_boxes",
+        "count": 19
+      },
+      "obstacles": [
+        "ice",
+        "root"
+      ],
+      "reward": {
+        "coins": 101,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_039",
+      "episode": 8,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 22,
+      "objective": {
+        "type": "clear_jam",
+        "count": 21
+      },
+      "obstacles": [
+        "ice",
+        "root"
+      ],
+      "reward": {
+        "coins": 103,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_040",
+      "episode": 8,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 22,
+      "objective": {
+        "type": "collect",
+        "tile": "banana",
+        "count": 31
+      },
+      "obstacles": [
+        "ice",
+        "root"
+      ],
+      "reward": {
+        "coins": 105,
+        "star": 1
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_041",
+      "episode": 9,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 20,
+      "objective": {
+        "type": "score",
+        "targetScore": 5650
+      },
+      "obstacles": [
+        "root",
+        "sticky_choco"
+      ],
+      "reward": {
+        "coins": 107,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_042",
+      "episode": 9,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 20,
+      "objective": {
+        "type": "collect",
+        "tile": "apple",
+        "count": 30
+      },
+      "obstacles": [
+        "root",
+        "sticky_choco"
+      ],
+      "reward": {
+        "coins": 109,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_043",
+      "episode": 9,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 20,
+      "objective": {
+        "type": "break_boxes",
+        "count": 22
+      },
+      "obstacles": [
+        "root",
+        "sticky_choco"
+      ],
+      "reward": {
+        "coins": 111,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_044",
+      "episode": 9,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 20,
+      "objective": {
+        "type": "clear_jam",
+        "count": 24
+      },
+      "obstacles": [
+        "root",
+        "sticky_choco"
+      ],
+      "reward": {
+        "coins": 113,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_045",
+      "episode": 9,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 20,
+      "objective": {
+        "type": "collect",
+        "tile": "banana",
+        "count": 34
+      },
+      "obstacles": [
+        "root",
+        "sticky_choco"
+      ],
+      "reward": {
+        "coins": 115,
+        "star": 1
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_046",
+      "episode": 10,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 20,
+      "objective": {
+        "type": "score",
+        "targetScore": 6400
+      },
+      "obstacles": [
+        "root",
+        "sticky_choco"
+      ],
+      "reward": {
+        "coins": 117,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_047",
+      "episode": 10,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 20,
+      "objective": {
+        "type": "collect",
+        "tile": "apple",
+        "count": 30
+      },
+      "obstacles": [
+        "root",
+        "sticky_choco"
+      ],
+      "reward": {
+        "coins": 119,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_048",
+      "episode": 10,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 20,
+      "objective": {
+        "type": "break_boxes",
+        "count": 22
+      },
+      "obstacles": [
+        "root",
+        "sticky_choco"
+      ],
+      "reward": {
+        "coins": 121,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_049",
+      "episode": 10,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 20,
+      "objective": {
+        "type": "clear_jam",
+        "count": 24
+      },
+      "obstacles": [
+        "root",
+        "sticky_choco"
+      ],
+      "reward": {
+        "coins": 123,
+        "star": 0
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "level_050",
+      "episode": 10,
+      "board": {
+        "rows": 8,
+        "cols": 8
+      },
+      "moves": 20,
+      "objective": {
+        "type": "collect",
+        "tile": "banana",
+        "count": 34
+      },
+      "obstacles": [
+        "root",
+        "sticky_choco"
+      ],
+      "reward": {
+        "coins": 125,
+        "star": 1
+      },
+      "difficulty": "hard"
+    }
+  ]
+}

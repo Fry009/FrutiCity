@@ -1,0 +1,47 @@
+# Unity-generated state. Keep Assets, Packages, ProjectSettings and .meta files.
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
+**/[Mm]emoryCaptures/
+**/[Rr]ecordings/
+**/[Bb]uild/
+**/[Bb]uilds/
+**/DerivedDataCache/
+**/.vs/
+**/.idea/
+*.csproj
+*.sln
+*.slnx
+*.user
+*.unityproj
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+sysinfo.txt
+.DS_Store
+Thumbs.db
+
+# Local validation and generated artifacts.
+.validation/
+artifacts/
+TestResults*.xml
+
+# Account configuration, signing material and private credentials.
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.p12
+*.pfx
+*service-account*.json
+*service_account*.json
+google-services.json
+google-services.json.meta
+GoogleService-Info.plist
+GoogleService-Info.plist.meta
+**/secrets/

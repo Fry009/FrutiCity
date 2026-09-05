@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "characters": [
+    {
+      "id": "char_mona_manzana",
+      "displayName": "Mona Manzana",
+      "fruit": "Manzana roja",
+      "profession": "Chef",
+      "personality": [
+        "soñadora",
+        "perfeccionista",
+        "dramática con la comida"
+      ],
+      "goal": "Abrir el restaurante más famoso del barrio.",
+      "passiveAbility": {
+        "id": "gourmet_touch",
+        "name": "Toque Gourmet",
+        "effect": "Pequeña probabilidad de duplicar un objeto de cocina al completar pedidos."
+      },
+      "visualNotes": "Manzana roja, gorro de chef crema, delantal corto, ojos grandes y cejas muy expresivas."
+    },
+    {
+      "id": "char_pablo_platano",
+      "displayName": "Pablo Plátano",
+      "fruit": "Plátano",
+      "profession": "Repartidor",
+      "personality": [
+        "despistado",
+        "optimista",
+        "entrañable"
+      ],
+      "goal": "Ser el repartidor más rápido sin volver a perder ningún paquete.",
+      "passiveAbility": {
+        "id": "express_delivery",
+        "name": "Entrega Exprés",
+        "effect": "Reduce ligeramente cooldowns de generadores de reparto."
+      },
+      "visualNotes": "Plátano curvado, gorra de mensajero, mochila grande, zapatillas."
+    },
+    {
+      "id": "char_fresi_fresa",
+      "displayName": "Fresi Fresa",
+      "fruit": "Fresa",
+      "profession": "Influencer",
+      "personality": [
+        "carismática",
+        "competitiva",
+        "dramática"
+      ],
+      "goal": "Llegar al millón de seguidores sin venderse por completo.",
+      "passiveAbility": {
+        "id": "viral",
+        "name": "Viral",
+        "effect": "Combos largos en FrutiCombo dan bonus de Frutimonedas."
+      },
+      "visualNotes": "Fresa rosa-roja, móvil, mini aro de luz, pequeños accesorios de moda."
+    },
+    {
+      "id": "char_nora_naranja",
+      "displayName": "Nora Naranja",
+      "fruit": "Naranja",
+      "profession": "Médica",
+      "personality": [
+        "sensata",
+        "protectora",
+        "irónica"
+      ],
+      "goal": "Mantener sano al barrio aunque nadie siga sus consejos.",
+      "passiveAbility": {
+        "id": "vitamins",
+        "name": "Vitaminas",
+        "effect": "Recupera una pequeña cantidad de energía una vez por sesión."
+      },
+      "visualNotes": "Naranja, bata médica corta, fonendo, expresión calmada."
+    },
+    {
+      "id": "char_pina_pina",
+      "displayName": "Pina Piña",
+      "fruit": "Piña",
+      "profession": "DJ",
+      "personality": [
+        "fiestera",
+        "ingeniosa",
+        "hiperactiva"
+      ],
+      "goal": "Montar el festival tropical definitivo.",
+      "passiveAbility": {
+        "id": "hype",
+        "name": "Subidón",
+        "effect": "Puede iniciar determinados niveles con una pieza especial."
+      },
+      "visualNotes": "Piña con hojas como peinado, auriculares grandes, chaqueta brillante."
+    },
+    {
+      "id": "char_sandi_sandia",
+      "displayName": "Sandi Sandía",
+      "fruit": "Sandía",
+      "profession": "Albañil",
+      "personality": [
+        "fuerte",
+        "noble",
+        "práctica"
+      ],
+      "goal": "Reconstruir la casa y demostrar que es la mejor manitas del barrio.",
+      "passiveAbility": {
+        "id": "hammer_hit",
+        "name": "Martillazo",
+        "effect": "Rompe gratuitamente un obstáculo débil en ciertos niveles."
+      },
+      "visualNotes": "Sandía compacta, peto de trabajo, cinturón de herramientas."
+    }
+  ]
+}

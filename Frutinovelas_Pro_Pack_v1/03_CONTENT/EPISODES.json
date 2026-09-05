@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "episodes": [
+    {
+      "id": "episode_01",
+      "title": "La cocina del desastre",
+      "levels": [
+        "level_001",
+        "level_002",
+        "level_003",
+        "level_004",
+        "level_005"
+      ],
+      "starTasks": [
+        {
+          "cost": 1,
+          "action": "dialogue",
+          "description": "Iniciar escena"
+        },
+        {
+          "cost": 1,
+          "action": "decorate",
+          "description": "Mejorar una zona de la casa"
+        },
+        {
+          "cost": 1,
+          "action": "story",
+          "description": "Resolver el conflicto del episodio"
+        }
+      ],
+      "cliffhanger": "Algo nuevo aparece en el barrio y abre el siguiente episodio."
+    },
+    {
+      "id": "episode_02",
+      "title": "El paquete imposible",
+      "levels": [
+        "level_006",
+        "level_007",
+        "level_008",
+        "level_009",
+        "level_010"
+      ],
+      "starTasks": [
+        {
+          "cost": 1,
+          "action": "dialogue",
+          "description": "Iniciar escena"
+        },
+        {
+          "cost": 1,
+          "action": "decorate",
+          "description": "Mejorar una zona de la casa"
+        },
+        {
+          "cost": 1,
+          "action": "story",
+          "description": "Resolver el conflicto del episodio"
+        }
+      ],
+      "cliffhanger": "Algo nuevo aparece en el barrio y abre el siguiente episodio."
+    },
+    {
+      "id": "episode_03",
+      "title": "Fama con sabor a fresa",
+      "levels": [
+        "level_011",
+        "level_012",
+        "level_013",
+        "level_014",
+        "level_015"
+      ],
+      "starTasks": [
+        {
+          "cost": 1,
+          "action": "dialogue",
+          "description": "Iniciar escena"
+        },
+        {
+          "cost": 1,
+          "action": "decorate",
+          "description": "Mejorar una zona de la casa"
+        },
+        {
+          "cost": 1,
+          "action": "story",
+          "description": "Resolver el conflicto del episodio"
+        }
+      ],
+      "cliffhanger": "Algo nuevo aparece en el barrio y abre el siguiente episodio."
+    },
+    {
+      "id": "episode_04",
+      "title": "Una receta viral",
+      "levels": [
+        "level_016",
+        "level_017",
+        "level_018",
+        "level_019",
+        "level_020"
+      ],
+      "starTasks": [
+        {
+          "cost": 1,
+          "action": "dialogue",
+          "description": "Iniciar escena"
+        },
+        {
+          "cost": 2,
+          "action": "decorate",
+          "description": "Mejorar una zona de la casa"
+        },
+        {
+          "cost": 1,
+          "action": "story",
+          "description": "Resolver el conflicto del episodio"
+        }
+      ],
+      "cliffhanger": "Algo nuevo aparece en el barrio y abre el siguiente episodio."
+    },
+    {
+      "id": "episode_05",
+      "title": "La casa cruje",
+      "levels": [
+        "level_021",
+        "level_022",
+        "level_023",
+        "level_024",
+        "level_025"
+      ],
+      "starTasks": [
+        {
+          "cost": 1,
+          "action": "dialogue",
+          "description": "Iniciar escena"
+        },
+        {
+          "cost": 2,
+          "action": "decorate",
+          "description": "Mejorar una zona de la casa"
+        },
+        {
+          "cost": 1,
+          "action": "story",
+          "description": "Resolver el conflicto del episodio"
+        }
+      ],
+      "cliffhanger": "Algo nuevo aparece en el barrio y abre el siguiente episodio."
+    },
+    {
+      "id": "episode_06",
+      "title": "Fiesta sin permiso",
+      "levels": [
+        "level_026",
+        "level_027",
+        "level_028",
+        "level_029",
+        "level_030"
+      ],
+      "starTasks": [
+        {
+          "cost": 1,
+          "action": "dialogue",
+          "description": "Iniciar escena"
+        },
+        {
+          "cost": 2,
+          "action": "decorate",
+          "description": "Mejorar una zona de la casa"
+        },
+        {
+          "cost": 2,
+          "action": "story",
+          "description": "Resolver el conflicto del episodio"
+        }
+      ],
+      "cliffhanger": "Algo nuevo aparece en el barrio y abre el siguiente episodio."
+    },
+    {
+      "id": "episode_07",
+      "title": "El diagnóstico del barrio",
+      "levels": [
+        "level_031",
+        "level_032",
+        "level_033",
+        "level_034",
+        "level_035"
+      ],
+      "starTasks": [
+        {
+          "cost": 1,
+          "action": "dialogue",
+          "description": "Iniciar escena"
+        },
+        {
+          "cost": 2,
+          "action": "decorate",
+          "description": "Mejorar una zona de la casa"
+        },
+        {
+          "cost": 2,
+          "action": "story",
+          "description": "Resolver el conflicto del episodio"
+        }
+      ],
+      "cliffhanger": "Algo nuevo aparece en el barrio y abre el siguiente episodio."
+    },
+    {
+      "id": "episode_08",
+      "title": "Entrega a contrarreloj",
+      "levels": [
+        "level_036",
+        "level_037",
+        "level_038",
+        "level_039",
+        "level_040"
+      ],
+      "starTasks": [
+        {
+          "cost": 1,
+          "action": "dialogue",
+          "description": "Iniciar escena"
+        },
+        {
+          "cost": 3,
+          "action": "decorate",
+          "description": "Mejorar una zona de la casa"
+        },
+        {
+          "cost": 2,
+          "action": "story",
+          "description": "Resolver el conflicto del episodio"
+        }
+      ],
+      "cliffhanger": "Algo nuevo aparece en el barrio y abre el siguiente episodio."
+    },
+    {
+      "id": "episode_09",
+      "title": "El gran servicio",
+      "levels": [
+        "level_041",
+        "level_042",
+        "level_043",
+        "level_044",
+        "level_045"
+      ],
+      "starTasks": [
+        {
+          "cost": 1,
+          "action": "dialogue",
+          "description": "Iniciar escena"
+        },
+        {
+          "cost": 3,
+          "action": "decorate",
+          "description": "Mejorar una zona de la casa"
+        },
+        {
+          "cost": 2,
+          "action": "story",
+          "description": "Resolver el conflicto del episodio"
+        }
+      ],
+      "cliffhanger": "Algo nuevo aparece en el barrio y abre el siguiente episodio."
+    },
+    {
+      "id": "episode_10",
+      "title": "La inauguración",
+      "levels": [
+        "level_046",
+        "level_047",
+        "level_048",
+        "level_049",
+        "level_050"
+      ],
+      "starTasks": [
+        {
+          "cost": 1,
+          "action": "dialogue",
+          "description": "Iniciar escena"
+        },
+        {
+          "cost": 3,
+          "action": "decorate",
+          "description": "Mejorar una zona de la casa"
+        },
+        {
+          "cost": 2,
+          "action": "story",
+          "description": "Resolver el conflicto del episodio"
+        }
+      ],
+      "cliffhanger": "Algo nuevo aparece en el barrio y abre el siguiente episodio."
+    }
+  ]
+}

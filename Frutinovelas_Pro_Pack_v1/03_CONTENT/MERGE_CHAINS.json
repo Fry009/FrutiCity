@@ -1,0 +1,130 @@
+{
+  "chains": [
+    {
+      "id": "merge_chef",
+      "owner": "char_mona_manzana",
+      "generator": "gen_cesta_cocina",
+      "levels": [
+        {
+          "level": 1,
+          "id": "chef_semilla",
+          "name": "Semilla"
+        },
+        {
+          "level": 2,
+          "id": "chef_cesta",
+          "name": "Cesta fresca"
+        },
+        {
+          "level": 3,
+          "id": "chef_cuchillo",
+          "name": "Cuchillo de chef"
+        },
+        {
+          "level": 4,
+          "id": "chef_tabla",
+          "name": "Tabla preparada"
+        },
+        {
+          "level": 5,
+          "id": "chef_recetario",
+          "name": "Recetario"
+        },
+        {
+          "level": 6,
+          "id": "chef_plato",
+          "name": "Plato estrella"
+        },
+        {
+          "level": 7,
+          "id": "chef_menu",
+          "name": "Menú gourmet"
+        }
+      ]
+    },
+    {
+      "id": "merge_delivery",
+      "owner": "char_pablo_platano",
+      "generator": "gen_almacen",
+      "levels": [
+        {
+          "level": 1,
+          "id": "delivery_etiqueta",
+          "name": "Etiqueta"
+        },
+        {
+          "level": 2,
+          "id": "delivery_sobre",
+          "name": "Sobre"
+        },
+        {
+          "level": 3,
+          "id": "delivery_caja",
+          "name": "Caja"
+        },
+        {
+          "level": 4,
+          "id": "delivery_bolsa",
+          "name": "Bolsa de reparto"
+        },
+        {
+          "level": 5,
+          "id": "delivery_patinet",
+          "name": "Patinete"
+        },
+        {
+          "level": 6,
+          "id": "delivery_moto",
+          "name": "Moto de reparto"
+        },
+        {
+          "level": 7,
+          "id": "delivery_premium",
+          "name": "Entrega premium"
+        }
+      ]
+    },
+    {
+      "id": "merge_influencer",
+      "owner": "char_fresi_fresa",
+      "generator": "gen_estudio_social",
+      "levels": [
+        {
+          "level": 1,
+          "id": "social_cable",
+          "name": "Cable"
+        },
+        {
+          "level": 2,
+          "id": "social_movil",
+          "name": "Móvil"
+        },
+        {
+          "level": 3,
+          "id": "social_aro",
+          "name": "Aro de luz"
+        },
+        {
+          "level": 4,
+          "id": "social_tripode",
+          "name": "Trípode"
+        },
+        {
+          "level": 5,
+          "id": "social_camara",
+          "name": "Cámara"
+        },
+        {
+          "level": 6,
+          "id": "social_estudio",
+          "name": "Set de grabación"
+        },
+        {
+          "level": 7,
+          "id": "social_campaign",
+          "name": "Campaña viral"
+        }
+      ]
+    }
+  ]
+}

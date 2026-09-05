@@ -1,0 +1,102 @@
+{
+  "rooms": [
+    {
+      "id": "living_room",
+      "name": "Salón",
+      "slots": [
+        {
+          "slot": "sofa",
+          "variants": [
+            "Sofá coral",
+            "Sofá crema",
+            "Sofá tropical"
+          ]
+        },
+        {
+          "slot": "table",
+          "variants": [
+            "Mesa redonda",
+            "Mesa madera",
+            "Mesa pop"
+          ]
+        },
+        {
+          "slot": "tv",
+          "variants": [
+            "TV retro",
+            "TV moderna",
+            "Proyector"
+          ]
+        },
+        {
+          "slot": "rug",
+          "variants": [
+            "Alfombra hojas",
+            "Alfombra geométrica",
+            "Alfombra frutal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kitchen",
+      "name": "Cocina",
+      "slots": [
+        {
+          "slot": "fridge",
+          "variants": [
+            "Nevera menta",
+            "Nevera crema",
+            "Nevera roja"
+          ]
+        },
+        {
+          "slot": "oven",
+          "variants": [
+            "Horno clásico",
+            "Horno moderno",
+            "Horno chef"
+          ]
+        },
+        {
+          "slot": "counter",
+          "variants": [
+            "Encimera clara",
+            "Encimera madera",
+            "Encimera tropical"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bedroom",
+      "name": "Dormitorio/estudio",
+      "slots": [
+        {
+          "slot": "bed",
+          "variants": [
+            "Cama nube",
+            "Cama madera",
+            "Cama tropical"
+          ]
+        },
+        {
+          "slot": "desk",
+          "variants": [
+            "Escritorio compacto",
+            "Escritorio creativo",
+            "Escritorio gamer-frutal"
+          ]
+        },
+        {
+          "slot": "wardrobe",
+          "variants": [
+            "Armario claro",
+            "Armario verde",
+            "Armario coral"
+          ]
+        }
+      ]
+    }
+  ]
+}

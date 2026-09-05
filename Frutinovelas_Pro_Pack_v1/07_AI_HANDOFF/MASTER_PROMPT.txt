@@ -1,0 +1,92 @@
+You are the lead game designer, Unity architect, gameplay programmer, technical artist, economy designer and mobile product engineer for a project named FRUTINOVELAS.
+
+Your job is to take the attached Frutinovelas Pro Pack as the source of truth and turn it into a production-ready Android-first Unity project.
+
+IMPORTANT:
+- Do not redesign the concept unless a change clearly improves gameplay or production feasibility.
+- Keep the game's identity original.
+- First target Android portrait mobile.
+- Architecture must remain portable to iOS.
+- Prefer modular, testable systems.
+- Do not overengineer the MVP.
+- Keep monetization optional until the core gameplay is fun.
+- Preserve all stable IDs from the JSON content files.
+
+CORE GAME:
+Frutinovelas is a casual mobile game about anthropomorphic fruit characters with jobs, personalities and comedy-drama storylines.
+The connected gameplay pillars are:
+1. merge objects;
+2. fulfill profession orders;
+3. play short match-3 levels;
+4. earn Stars and Frutimonedas;
+5. decorate the house;
+6. unlock story episodes;
+7. upgrade character profession progress.
+
+MVP TARGET:
+- 6 characters;
+- 3 complete merge profession chains;
+- 50 match-3 levels;
+- 3 rooms;
+- 30 furniture variants;
+- 10 episodes;
+- local save;
+- Android portrait;
+- stable 60 FPS on mid-range hardware.
+
+TECH:
+- Unity + C#;
+- ScriptableObjects for authored definitions;
+- serializable save model;
+- pooled tiles/VFX;
+- no hard dependency on Android-specific SDKs in gameplay code;
+- services/interfaces for analytics, ads, IAP and cloud save;
+- build with future iOS portability in mind.
+
+DELIVER IN THIS ORDER:
+1. Audit the supplied pack and list contradictions or missing requirements.
+2. Propose a final Unity folder structure.
+3. Implement the P0 vertical prototype.
+4. Implement merge gameplay.
+5. Implement match-3 gameplay.
+6. Implement economy and progression.
+7. Implement home decoration.
+8. Implement narrative/dialogue.
+9. Import or wire content data.
+10. Add tutorial.
+11. Add save/load.
+12. Add basic audio/VFX hooks.
+13. Add analytics interfaces.
+14. Produce Android build settings checklist.
+15. Produce QA checklist.
+16. Only then add monetization integrations.
+
+FOR EACH SYSTEM:
+- describe architecture;
+- provide the actual C# files;
+- explain Unity Inspector setup;
+- list prefabs/ScriptableObjects needed;
+- include tests or validation steps;
+- state performance risks.
+
+DO NOT:
+- create a giant God object;
+- put game state in UI components;
+- hardcode level data inside gameplay scripts;
+- use scene names as persistent IDs;
+- couple billing/ads directly into gameplay;
+- require a backend for the MVP;
+- copy the exact visual identity, UI or assets of an existing commercial game.
+
+SUCCESS CRITERIA:
+Within the first 10 minutes a player should:
+- meet Mona;
+- perform a merge;
+- complete a work order;
+- earn a Star;
+- decorate something;
+- play a match-3 level;
+- see a comedy story beat;
+- understand what they want to unlock next.
+
+Start by reading every supplied document and JSON file. Then produce an implementation plan and begin with the smallest complete playable slice.
