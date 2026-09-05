@@ -10,8 +10,10 @@ FrutiCity/                         ← raíz del proyecto Unity
       Core/                        ← contenido, economía, progreso, guardado, servicios
       Merge/                       ← reglas del tablero 7 × 9
       Match3/                      ← motor puro de puzzles y resultados de cascadas
+      Art3D/                       ← modelos 3D procedurales, rasterizador y horneado de sprites
       UI/                          ← pantallas, controles y presentación
       FrutiCity.Runtime.asmdef
+    Art3D/                         ← shader de color por vértice y destino del exportador
     Resources/
       Content/                     ← JSON del pack y catálogo opcional
       Art/                         ← arte y tipografía
@@ -35,6 +37,16 @@ Frutinovelas_Pro_Pack_v1/            ← material original preservado
 `MatchGame` no depende de Unity. Recibe `MatchConfig` y produce un `MoveResult` con una secuencia de `MatchStep`: intercambio, eliminación, caída, especial o mezcla. Cada paso incluye una instantánea del tablero para animar la misma operación que resolvió el motor. `FindHint` permite indicar movimientos legales; el modelo gestiona victoria, derrota y objetivos. El inventario y el coste de boosters pertenecen al estado de partida, separados de su efecto sobre el puzzle.
 
 `FrutiCityApp` es el componente de entrada que monta la interfaz en tiempo de ejecución. La escena no necesita referencias manuales a decenas de prefabs para empezar. `ProjectBuilder` crea la escena de forma aditiva y la cierra tras guardarla, conservando la escena abierta del usuario. Los builders construyen únicamente esta escena.
+
+## Arte 3D y presentación 2.5D
+
+`Mesh3D` es una malla de triángulos con color por vértice: datos puros, sin `UnityEngine.Mesh`, sin escena y sin dispositivo gráfico. `Shapes3D` construye las primitivas (revolución, esfera, cilindro, cono, disco, caja, prisma extruido con recorte de orejas y tubo con transporte paralelo). `FruitModels` compone con ellas los trece modelos del juego —seis frutas y siete objetos— y los normaliza a la esfera unidad para que todos encuadren igual.
+
+`Rasterizer3D` dibuja esas mallas por software: búfer de profundidad, luz principal fija, iluminación por vértice interpolada, contorno por casco invertido, sombra de contacto y suavizado por supermuestreo. Al no depender del pipeline de render, los mismos píxeles salen en el editor, en un jugador y en una ejecución headless de validación.
+
+`Fruit3D` hornea cada modelo en una tira de dieciséis fotogramas de rotación dentro de una sola textura y los reparte como sprites. `Spin3D` reproduce esa tira sobre un `Image` con fase propia por pieza: eso es el 2.5D, geometría y luz reales presentadas por el lienzo 2D existente. Compartir textura mantiene el batching; la escala queda libre para los golpes de `GameFeel`; con «Reducir animaciones» las piezas se congelan de frente.
+
+Los índices de modelo coinciden con los de `FruitArt`, que sigue sirviendo las partículas, más baratas en 2D. `Art3DExporter` («FrutiCity → Art») escribe mallas `.asset`, prefabs y hojas PNG bajo `Assets/FrutiCity/Art3D/` para poder inspeccionar o sustituir el arte; el juego no depende de esos archivos.
 
 ## Guardado
 

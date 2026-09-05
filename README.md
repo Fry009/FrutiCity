@@ -11,12 +11,15 @@ Un barrio tropical, seis frutas con personalidad y una casa que vuelve a la vida
 
 La escena inicial se genera al importar los scripts, conservando la escena que tengas abierta. La interfaz se construye al jugar; por eso la jerarquía de la escena es pequeña. Los controles admiten ratón en PC y interacción táctil en móvil.
 
+Las frutas y los objetos son modelos 3D construidos por código y horneados en tiras de rotación, que la interfaz reproduce con fase propia por pieza: de ahí el aspecto 2.5D. Se puede desactivar el movimiento en **Ajustes → Reducir animaciones**.
+
 ## Compilar
 
 - **FrutiCity → Build → Windows preview** crea `FrutiCity/Builds/Windows/FrutiCity.exe` para probar el juego inmediatamente en PC. Conserva toda la carpeta junto al ejecutable al compartirlo.
 - **FrutiCity → Build → Android development APK** crea un APK de pruebas cuando esté instalado Android Build Support, con SDK, NDK y OpenJDK.
 - **FrutiCity → Build → Android signed App Bundle** crea el AAB con tu clave de subida configurada fuera del repositorio. No sube ni publica nada en Play Console.
 - **FrutiCity → Capture preview** guarda una captura de Game durante Play en `FrutiCity/Builds/Screenshots/`.
+- **FrutiCity → Art → Export 3D models** escribe las mallas y los prefabs de los trece modelos en `Assets/FrutiCity/Art3D/`, y **Export turnaround sheets** guarda sus hojas de rotación en PNG. El juego genera todo eso en memoria al arrancar: exportar sirve para mirarlo, retocarlo o sustituirlo por arte propio.
 
 Para validar sin cerrar tu Editor se puede ejecutar `tools/Validate-Unity.ps1`. El script prepara una copia aislada bajo `.validation/` y guarda registros en `artifacts/`. Los resultados de cada ejecución deben revisarse; la presencia de tests no significa por sí sola que hayan pasado.
 

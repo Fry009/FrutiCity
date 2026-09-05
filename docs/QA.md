@@ -16,6 +16,7 @@ En Unity: Window → General → Test Runner → EditMode → Run All. Las prueb
 6. **Casa e historia:** colocar un mueble, cambiar su variante, cambiar de habitación, avanzar episodio y reabrir el juego. La elección y la tarea deben conservarse sin cobrar dos veces.
 7. **Diario y tienda:** reclamar una vez, intentar reclamar otra vez, comprobar los siete días y las misiones. Las compras con monedas reflejan el coste antes de confirmar.
 8. **Ajustes:** sonido, música, vibración y movimiento reducido; salir y entrar para confirmar persistencia. Atrás/Escape cierra primero el panel activo.
+8b. **Arte 2.5D:** las piezas del tablero giran con fase distinta entre ellas y se leen sin depender del color; al activar «Reducir animaciones» quedan quietas y de frente en todas las pantallas; la primera apertura de cada pantalla no produce un tirón perceptible.
 9. **Guardado:** cerrar después de un premio, reabrir y revisar estado. Sobre una copia de prueba, corromper el principal y comprobar recuperación desde `.bak`; no usar la partida personal para esta prueba.
 10. **Sesión larga:** alternar todas las pantallas durante diez minutos, jugar varios niveles, suspender/reanudar y vigilar errores, memoria y fluidez.
 
