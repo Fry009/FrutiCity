@@ -9,7 +9,7 @@ El tablero usa frutas cartoon **sin ojos ni boca**. Los personajes expresivos se
 - Cocina, salón y dormitorio originales modelados en Blender, cuatro estados visuales por habitación. Los diez episodios reutilizan estas tres escenas; no son diez escenarios únicos.
 - Las tareas existentes consumen estrellas una sola vez. Ya no exigen comprar muebles aparte ni superar un nivel adicional después de pagar. Las estrellas de las antiguas compras de muebles se devuelven una vez al migrar.
 - La última mejora entrega una sola vez el premio existente de 100 monedas y 5 de energía. Se puede volver a visitar un episodio terminado. La progresión y la escena se reconstruyen desde el guardado.
-- Reposo, salto al tocar personajes, hinchado, explosión y rebote en las piezas; gotas del color de la fruta eliminada. Movimiento reducido desactiva partículas y reacciones intensas.
+- Reposo, salto al tocar personajes, hinchado, explosión y rebote en las piezas; gotas del color de la fruta eliminada. Las hélices despegan y dejan estela hasta su objetivo, la dinamita carga y sacude antes de explotar, las bolas multicolor giran al cargar y las cajas sueltan astillas según reciben daño. Movimiento reducido desactiva partículas y reacciones intensas.
 - Modelos propios para dinamita, hélice y bola multicolor. Cohetes orientados por dirección. Los renders de modelos 3D se animan como sprites en el Canvas: no son personajes 3D con esqueleto renderizados en tiempo real.
 - Dinamita con radio dos; doble dinamita radio cuatro; hélice despeja vecinos y un objetivo; doble hélice tres objetivos; hélice con especial transporta uno; bola con especial convierte el color más frecuente. Creación y activación tienen eventos visuales distintos.
 
