@@ -1,5 +1,7 @@
 # Punto de continuación
 
+> Actualización posterior del 6 de septiembre: rediseño visual implementado, compilación Windows correcta (0 errores, 3 avisos), 78/78 pruebas y navegación comprobada en Play. Unity MCP está conectado y registrado en Codex. Consultar [revisión UX/UI](UX_UI_REVIEW.md) y [Unity MCP](UNITY_MCP.md). El resto de este documento conserva el estado anterior y sus recetas; las indicaciones de «UI sin mirar» ya están superadas.
+
 Estado a 6 de septiembre de 2026, tras la sesión de arte 3D + motor + UI. Este documento existe para que otra sesión pueda seguir sin releer todo el historial. Dice qué está hecho, qué está verificado, qué decisiones conviene **no** deshacer y qué falta.
 
 ## 1. Estado verificado

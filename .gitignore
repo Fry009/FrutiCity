@@ -27,6 +27,7 @@ Thumbs.db
 
 # Local validation and generated artifacts.
 .validation/
+.tools/
 artifacts/
 TestResults*.xml
 
