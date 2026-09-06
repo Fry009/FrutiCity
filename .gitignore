@@ -45,3 +45,7 @@ google-services.json.meta
 GoogleService-Info.plist
 GoogleService-Info.plist.meta
 **/secrets/
+
+# Cache de Python: lo genera importar los modelos de art/blender.
+__pycache__/
+*.pyc
