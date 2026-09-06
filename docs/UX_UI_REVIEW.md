@@ -15,6 +15,10 @@ Dirección: la muestra de Fruti Novelas proporcionada por Fran, conservando el n
 - Avisos limpiados al navegar; captura automática sin entrada de ratón y con ejecución en segundo plano.
 - Importación de barrio y retratos con proporciones originales, sin mipmaps ni compresión de textura.
 
+## Refactorización posterior: reforma y puzle
+
+La navegación ya no incluye taller ni fusiones. La sección **Reformar** muestra una habitación isométrica original con tres mejoras que se desbloquean con estrellas del puzle. El tablero utiliza frutas sin rostro; los personajes expresivos pertenecen a la casa, las historias y los vecinos. Las reglas, animaciones y validación están en [REFORMA_Y_PUZZLE.md](REFORMA_Y_PUZZLE.md).
+
 ## Validación
 
 78/78 pruebas EditMode correctas, cero fallos. Navegación de seis pantallas y avance de diálogo comprobados en Play mediante MCP; consola sin errores actuales. Capturas de siete pantallas en `artifacts/ux-review/`. Compilación Windows en `FrutiCity/Builds/Windows/`.
