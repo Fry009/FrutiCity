@@ -111,7 +111,9 @@ Los tres avisos son previos a este trabajo: `FindFirstObjectByType` está marcad
 
 ## 2. Riesgo abierto: nada está en git
 
-`Assets/FrutiCity/` aparece **sin seguimiento** en el repositorio anidado `FrutiCity/`. Todo el código del juego —motor, pantallas, arte 3D, efectos— está sin confirmar. Un borrado accidental lo pierde entero. Es lo primero que debería resolverse.
+> **Resuelto el 7 de septiembre.** `Assets/FrutiCity/` **ya está confirmado** en el repositorio anidado `FrutiCity/` (remoto `Fry009/FrutiCity-2026-09-05_14-24-42`). El aviso de abajo queda como historia; comprobar con `git status` antes de creérselo.
+
+`Assets/FrutiCity/` aparecía **sin seguimiento** en el repositorio anidado `FrutiCity/`. Todo el código del juego —motor, pantallas, arte 3D, efectos— estaba sin confirmar. Un borrado accidental lo perdía entero.
 
 ```powershell
 cd FrutiCity ; git status --short   # muestra "?? Assets/FrutiCity/"
