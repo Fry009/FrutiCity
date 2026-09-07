@@ -2,6 +2,97 @@
 
 > Actualización posterior del 6 de septiembre: rediseño visual implementado, compilación Windows correcta (0 errores, 3 avisos), 78/78 pruebas y navegación comprobada en Play. Unity MCP está conectado y registrado en Codex. Consultar [revisión UX/UI](UX_UI_REVIEW.md) y [Unity MCP](UNITY_MCP.md). El resto de este documento conserva el estado anterior y sus recetas; las indicaciones de «UI sin mirar» ya están superadas.
 
+## Sesión del 7 de septiembre: combos, efectos 3D, mapa y música
+
+Se trabajó con el vídeo de referencia de Royal Match delante (`iSaTx0T9GFw`, descargado
+por trozos con `yt-dlp -f 230 --download-sections` y hojeado como contactos de ffmpeg;
+el formato HLS 230 es el que baja en segundos, los DASH tardan una eternidad). Lo que
+se copió de ahí está anotado en el código donde toca.
+
+**Verificado:** 84/84 pruebas EditMode, compilación Windows correcta, y las doce
+capturas miradas una a una. La receta de captura ahora incluye mapa, ficha de nivel y
+tres fotos de combos en marcha (`CaptureEffects`), porque un rayo dura dos décimas y
+ninguna prueba automática lo ve.
+
+### Motor
+
+`ComboKind` (en `MatchTypes.cs`) nombra qué pareja de especiales se ha cruzado. El
+motor ya resolvía todas las combinaciones; lo único que faltaba era **decir cuál**, que
+es lo que permite montar una puesta en escena distinta por combo. `NameCombo` lo
+deduce y `TrySwap` lo cuelga del paso `Activate`.
+
+**Trampa pagada:** el paso `Activate` propio SOLO se añade cuando hay pareja de verdad
+(`combo != Single`). Un especial suelto lo dispara la cadena en `ClearWave`, y
+anunciarlo además desde `TrySwap` hacía que el cohete se disparase dos veces.
+
+### Efectos
+
+En `GameFeel`: `Bar` (la barra girada de la que salen todos los rayos), `Beam` (estela
+con núcleo blanco), `Bolt` (rayo quebrado plano), `Ray3D` (rayo con cuerpo, el modelo
+de Blender estirado), `Starburst`, `Flash`, `Halo`, `Charge`, `Plume` (humo de cohete),
+`Flames`, `Boom`, `Fly3D` y `Debris3D`.
+
+Lo que se aprendió mirando el vídeo, y que conviene no deshacer:
+
+- **El cohete no se para en el borde.** Sale del tablero y la estela sigue fuera. Pararlo
+  en el marco lo convierte en una raya pintada.
+- **La estela es humo, no una línea.** `Plume` siembra bocanadas a lo largo del recorrido,
+  con fuego naranja en las primeras. Las bocanadas se solapan de sobra a propósito: con
+  poco solape se leen como un collar de bolas.
+- **El cohete apunta a donde vuela.** `Fly3D` acepta rumbo fijo, y el modelo se horneó
+  mirando arriba-derecha, así que hay que descontar `RocketNoseAngle` = 45°.
+- **Los rayos largos y finos, no gordos y cortos.** Y con núcleo blanco opaco dentro del
+  halo de color: solo con el halo se desvanecen contra el tablero.
+- **La hélice deja raya lisa; el zigzag es del arcoíris.** Mezclarlos borra la diferencia.
+- **El rótulo de combo va sobre placa oscura y con mejor ajuste.** Dorado sobre tablero
+  claro no se lee, y los nombres largos se partían en dos líneas fuera de la placa.
+- **Un combo puede lanzar doce cohetes.** `FireRocket` acepta menos bocanadas para las
+  tandas: a dieciséis cada uno son casi trescientos objetos en un fotograma.
+
+### Arte 3D nuevo (Blender)
+
+Tres modelos de efecto, con el mismo estudio que las trece piezas: `modelo_humo.py`,
+`modelo_rayo3d.py`, `modelo_llama.py`. Se exportan con
+`blender --background --python art/blender/exportar.py -- EFECTOS` y se copian a
+`Resources/Art/` como `fx_humo.png`, `fx_rayo.png`, `fx_llama.png`. Van por
+`UiKit.Asset`, **no** por `FruitModels`: así no hay que tocar `Names` ni `Count`.
+
+**Trampa pagada (la de siempre, mirar el PNG):** la cámara mira desde −Y. El rayo se
+montó primero en el plano XZ y salió como un tubo visto de punta; va en XY con
+`ENCARA=(84,0,-6)`, igual que la pieza de energía. La llama se giró 86° y salió como una
+bola naranja; una revolución sobre Z ya se ve de perfil sin encarar nada. Ninguno de los
+dos dio error en consola.
+
+### Interfaz
+
+- **Mapa de niveles:** una tarjeta por capítulo con su número, título, estrellas del
+  capítulo y cinco botones. Candado dibujado en los bloqueados, estrellas debajo de los
+  jugados y un «▲ AQUÍ» en el que toca. Debajo de cada botón va **una** de las dos cosas,
+  nunca las dos: se pisaban justo en el nivel que más se mira.
+- **Título en una línea.** «Un mundo de combinaciones» se partía y la segunda línea caía
+  encima del subtítulo. Ahora es «Camino de combos».
+- **Ficha de nivel con receta de combo**, copiada de las pantallas de carga de Royal
+  Match: dos especiales, una flecha y el resultado con halo. Una por nivel, en el orden
+  en que merece la pena aprenderlas.
+
+### Música
+
+Tres temas clásicos de dominio público, sintetizados en el propio juego (no se importa
+ninguna grabación): Himno de la alegría, Pequeña serenata nocturna y Marcha turca.
+Rotan al empezar cada nivel y se pueden cambiar desde la pausa. El volumen sigue en
+`.07`, que es lo que había; si suena bajo, es ahí donde se sube.
+
+### Lo que no se pudo hacer
+
+**Los efectos de la Asset Store de Unity.** No hay forma de descargarlos desde aquí: la
+tienda exige cuenta e ir por el Package Manager, y aunque sean gratis hay que
+«comprarlos» con una sesión iniciada. Además la mayoría son sistemas de partículas en
+espacio de mundo, y este juego se dibuja entero en un Canvas de UGUI: no caerían en el
+tablero sin rehacerlos. Por eso los efectos van por Blender. Si Fran importa un paquete
+a mano, conectarlo sí es trabajo de una sesión.
+
+---
+
 Estado a 6 de septiembre de 2026, tras la sesión de arte 3D + motor + UI. Este documento existe para que otra sesión pueda seguir sin releer todo el historial. Dice qué está hecho, qué está verificado, qué decisiones conviene **no** deshacer y qué falta.
 
 ## 1. Estado verificado

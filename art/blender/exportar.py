@@ -21,7 +21,11 @@ SALIDA = os.path.join(AQUI, "assets")
 
 FRUTAS = ["manzana", "platano", "fresa", "naranja", "uvas", "kiwi"]
 ESPECIALES = ["estrella", "moneda", "energia", "caja", "bomba", "cohete", "martillo"]
-TODAS = FRUTAS + ESPECIALES
+# Efectos: no son piezas del tablero, son las cosas que vuelan por encima
+# (humo de cohete, rayo de la bola de luz, fuego de la dinamita). Salen del
+# mismo estudio que las trece para que la familia no se rompa.
+EFECTOS = ["humo", "rayo3d", "llama"]
+TODAS = FRUTAS + ESPECIALES + EFECTOS
 
 MUESTRAS = 220
 TAMANOS = (512, 128)
@@ -64,6 +68,8 @@ if __name__ == "__main__":
     pedidas = argv or ["manzana"]
     if len(pedidas) == 1 and pedidas[0].upper() == "TODAS":
         pedidas = TODAS
+    elif len(pedidas) == 1 and pedidas[0].upper() == "EFECTOS":
+        pedidas = EFECTOS
     fallos = []
     for n in pedidas:
         try:
