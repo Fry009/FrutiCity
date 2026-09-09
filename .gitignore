@@ -1,3 +1,8 @@
+# The game is a repository of its own (FrutiCity/FrutiCity/.git) with its history
+# and its remote; the outer repo only tracks docs, tools and config. The nested repo
+# must never be added as a gitlink.
+/FrutiCity/
+
 # Unity-generated state. Keep Assets, Packages, ProjectSettings and .meta files.
 **/[Ll]ibrary/
 **/[Tt]emp/
