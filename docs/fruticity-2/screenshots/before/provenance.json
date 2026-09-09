@@ -1,0 +1,101 @@
+﻿{
+    "recordedUtc":  "2026-09-09T17:18:25.7503162Z",
+    "kind":  "Existing runtime screenshot baseline",
+    "status":  "Existing valid captures copied without pixel edits. Fresh Hidden and Hidden + batchmode capture attempts exited zero but produced black frames; logs and failed frames preserved under validation/before/hidden-render-*.",
+    "sourceBuildSummary":  "validation/before/build-StandaloneWindows64-baseline.txt",
+    "baselineSnapshot":  ".validation/fruticity2-phase1",
+    "runtimeAssemblySha256":  "44FE0262A91E7B31C174B07379D2A4E84FAFCB00640A6820703DDBF7DF2374A6",
+    "images":  [
+                   {
+                       "file":  "00-portada.png",
+                       "source":  "artifacts/capturas-hoy/00-portada.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:44.8353857Z",
+                       "bytes":  312239,
+                       "sha256":  "F6F44438116D6C48EABD1809190BFF5343C1DD80406CE25114D5966D6435C58F"
+                   },
+                   {
+                       "file":  "01-home.png",
+                       "source":  "artifacts/capturas-hoy/01-home.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:46.0744035Z",
+                       "bytes":  648241,
+                       "sha256":  "35D25B19EC8E54751226078B39386736D1F2FADEDF98E61AB3D07AD62228C53F"
+                   },
+                   {
+                       "file":  "02-renovation.png",
+                       "source":  "artifacts/capturas-hoy/02-renovation.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:47.2124914Z",
+                       "bytes":  278699,
+                       "sha256":  "C8C026456A112B0109887239C8F15ECFD41E06DA0AEA456CE3BD1D7F1DD50C15"
+                   },
+                   {
+                       "file":  "03-match3.png",
+                       "source":  "artifacts/capturas-hoy/03-match3.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:48.7009215Z",
+                       "bytes":  367038,
+                       "sha256":  "21EE8896FF0ED03C6A3E562A58C0C78FB0007CC856827D0EFEB9D7C57F6344EE"
+                   },
+                   {
+                       "file":  "04-home-decoration.png",
+                       "source":  "artifacts/capturas-hoy/04-home-decoration.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:49.8069293Z",
+                       "bytes":  265672,
+                       "sha256":  "0D3DE7C1C4814F9312A83E0B84177E320C9E81EFEE919F7CAB2C2A99D0959021"
+                   },
+                   {
+                       "file":  "05-story.png",
+                       "source":  "artifacts/capturas-hoy/05-story.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:50.9337358Z",
+                       "bytes":  208527,
+                       "sha256":  "7B7F048D14EF4D8FE8BAA49A9879A5336606699B16FE77024A8620EF597842DF"
+                   },
+                   {
+                       "file":  "06-characters.png",
+                       "source":  "artifacts/capturas-hoy/06-characters.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:52.0618043Z",
+                       "bytes":  203360,
+                       "sha256":  "40EDE2A78E58E97C587B7971B64685C7E5D1C9997776BAEC5D0EDF43B91E278C"
+                   },
+                   {
+                       "file":  "07-shop.png",
+                       "source":  "artifacts/capturas-hoy/07-shop.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:53.1868568Z",
+                       "bytes":  179847,
+                       "sha256":  "2A7EDADC445EA871F0779B940B60AC97BF84AD4D4B77FE55C975BC0F9BBEC4A8"
+                   },
+                   {
+                       "file":  "08-levelmap.png",
+                       "source":  "artifacts/capturas-hoy/08-levelmap.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:54.4682969Z",
+                       "bytes":  523445,
+                       "sha256":  "ADCB94F4C64F1B6B77BF39C819D3CCDFB03154D91808765B9A792F752541845B"
+                   },
+                   {
+                       "file":  "09-levelintro.png",
+                       "source":  "artifacts/capturas-hoy/09-levelintro.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:55.6866253Z",
+                       "bytes":  147185,
+                       "sha256":  "E1A5DB3CBFA9E07DD346C32B9E5F8DF0C74B7AA8C5C1AF26E44DC1167B690ACC"
+                   },
+                   {
+                       "file":  "10-combo-cohetes.png",
+                       "source":  "artifacts/capturas-hoy/10-combo-cohetes.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:57.1275876Z",
+                       "bytes":  445668,
+                       "sha256":  "83F78F9BDAEAAA01C136E4D3EF5EE8640DC628B2E462950E4C186272DECFABDA"
+                   },
+                   {
+                       "file":  "11-combo-arcoiris.png",
+                       "source":  "artifacts/capturas-hoy/11-combo-arcoiris.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:22:58.5935349Z",
+                       "bytes":  401787,
+                       "sha256":  "619BC5C1657A63A82F6940CD17EEB99A5E57EE44458F6620127F213DFF852CA3"
+                   },
+                   {
+                       "file":  "12-combo-bombas.png",
+                       "source":  "artifacts/capturas-hoy/12-combo-bombas.png",
+                       "sourceLastWriteUtc":  "2026-09-09T16:23:00.1423077Z",
+                       "bytes":  424835,
+                       "sha256":  "D84B8594626EDFB4CDD09A44D7AD16E5D8295B41B6096A325D79B659C42953BD"
+                   }
+               ]
+}

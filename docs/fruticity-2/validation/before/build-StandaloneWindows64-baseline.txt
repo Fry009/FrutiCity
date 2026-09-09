@@ -1,0 +1,2 @@
+2026-09-09T16:22:17.2301715Z
+FrutiCity StandaloneWindows64: Succeeded, 0 errors, 2 warnings. 275492295 bytes. Output: C:\Users\Fran\Desktop\Fran\FrutiCity\FrutiCity\Builds\Windows\FrutiCity.exe
