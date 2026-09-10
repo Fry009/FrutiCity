@@ -93,6 +93,48 @@ Dónde ponerlos: uno por capítulo, colgando del camino y no dentro de la fila d
 
 **Ojo con una cosa**: si el bonus se puede rejugar y dar cristal cada vez, es una granja infinita y las puertas dejan de significar nada. Tiene que dar cristal **una sola vez**, igual que los niveles normales, o dar cristal sólo la primera vez y monedas las siguientes.
 
+## 2 ter. Los números finales, y el fallo que casi se cuela
+
+Fran fijó: **1 estrella = 1 cristal, 3 estrellas = 2**, más el nivel de bonus, que es el **antepenúltimo de cada bloque de cinco**. Las 2 estrellas no las fijó; aquí pagan 1, para que el salto que se note sea llegar a las **tres**.
+
+**El bonus es uno de los cinco niveles, no un extra.** Eso cambia las cuentas respecto a lo escrito más arriba: cada capítulo tiene cinco niveles que pagan cristal, no cuatro.
+
+Como las 2 estrellas también pagan 1, **el suelo de la temporada es exactamente 50**: es lo que tiene quien se pasa los cincuenta niveles sin sacar tres estrellas ni una sola vez.
+
+| | Cristales |
+| --- | --- |
+| Suelo (nunca 3★) | **50** |
+| Normal (~15 niveles a 3★) | 65 |
+| Techo (todo a 3★) | 100 |
+
+### El fallo
+
+Un primer reparto de puertas subía de 5 a 9 y sumaba **71**. Con un suelo de 50, eso deja **encerrado para siempre** a quien juegue toda la temporada sin sacar tres estrellas — el peor resultado posible, porque le pasa al jugador que más ha jugado.
+
+Lo cazó la prueba `TheWholeSeasonIsFinishable`, que existe justo para eso y se queda como red permanente: si alguien sube las puertas en el futuro, salta.
+
+### Lo que sí cierra
+
+**Puertas: 4, 4, 4, 4, 5, 5, 5, 5, 5 → 41 cristales.** Margen en el peor caso: **+9**.
+
+Y cada puerta sigue significando algo: con **4** hay que completar al menos cuatro de los cinco niveles del capítulo; con **5**, el capítulo entero. Ninguna puede costar más de 5, o encerraría al jugador del suelo.
+
+### Cómo se guarda
+
+El saldo **no se guarda: se calcula**.
+
+```
+saldo = ganados(mejores estrellas de cada nivel) − gastados(puertas abiertas)
+```
+
+Lo ganado sale de `levelRecords`, que ya guarda la mejor marca de cada nivel. Eso resuelve solo los dos problemas de este tipo de moneda: **no hay granja** (rejugar no cambia tu mejor marca) y **no hay bloqueo** (mejorar estrellas sube el total automáticamente). En el guardado entra **un solo entero**: `gatesOpened`.
+
+Guardar un contador aparte habría exigido además una lista de «niveles ya pagados», y esa lista es justo la que se desincroniza y acaba regalando o robando cristales.
+
+### Las estrellas pagan dos veces, y es a propósito
+
+Las que se **gastan** en la reforma (`state.stars`, una por nivel la primera vez) y las que quedan **registradas por nivel** (`levelRecords[].stars`, la mejor marca) son cosas distintas y no interfieren. Sacar 3★ da una estrella gastable para la casa **y** dos cristales para la puerta: la misma buena partida paga las dos cosas.
+
 ## 3. Lo que habría que construir
 
 En orden, y ninguno depende de cuentas ni credenciales:
