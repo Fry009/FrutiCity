@@ -1,0 +1,11 @@
+La causa de que se vieran raros era concreta: eran un carácter de la fuente. Un + tipográfico está hecho para leerse dentro de una frase — es fino, se apoya en la línea base y no está centrado en su caja. En un círculo de 28 px sale borroso y descolgado hacia arriba.
+
+Ahora están dibujados: dos barras redondeadas, centradas de verdad, con sombra propia y brillo arriba como las demás piezas. Nítidos a cualquier tamaño porque ya no dependen del renderizado de texto.
+
+Un aviso que te dejo anotado
+Esa esquina de la barra ya me ha dado guerra tres veces hoy: primero "50 / 50" partido en dos líneas, luego metiéndose por debajo del +, ahora resuelto bajando el cuerpo. El contador de rayos es el único con dos números, así que es el más frágil de los cuatro.
+
+Lo dejé escrito en el changelog: cada vez que se toque el ancho de la fila, hay que volver a mirar ese contador. Es el que revienta primero.
+
+Siguiente
+Los cristales siguen sin hacer nada — falta la puerta de capítulo en el mapa y el modo bonus. Hasta entonces son un número bonito en la barra. ¿Tiro con la puerta?
