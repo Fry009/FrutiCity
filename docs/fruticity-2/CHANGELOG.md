@@ -1,5 +1,15 @@
 # FrutiCity 2 — cambios
 
+## 2026-09-10 (tarde, II) — fase 4 y minitutorial de mecánicas
+
+- **Casa es la ciudad.** El camino de niveles deja de vivir en una ventanita de 530 px dentro de otra pestaña y pasa a ser la pantalla, con las utilidades fijas arriba y un solo botón grande abajo.
+- La barra baja a **tres destinos**: Ciudad, Vecinos, Tienda. «Mapa» desaparece porque Casa ya es el mapa.
+- **Minitutorial de comportamientos del tablero**, pedido por Fran: la primera vez que sale la mermelada, el hielo, la caja, la raíz o el chocolate, el juego se para y lo explica, con la muestra dibujada igual que en el tablero y un foco sobre las casillas afectadas al cerrar.
+- Los textos del tutorial salen de leer `MatchGame.ResolveClears`, no de la intuición. **El hielo NO se rompe combinando al lado**: eso lo hacen caja, raíz y chocolate.
+- `GameState.seenMechanics` guarda qué se ha explicado ya, sin subir `SaveVersion`.
+
+Detalle en [phase-4.md](phase-4.md). Capturas en `screenshots/fase-4/`.
+
 ## 2026-09-10 (tarde) — fases 2 y 3
 
 - **Revalidada la fase 1, que no se había visto.** Sus catorce capturas estaban en negro (`Camera.Render()` no funciona en URP y no da error); los tests eran 114/115 por caché de importación, no 115/115; y el build de Windows moría por disco lleno, no por código. Detalle en la corrección de [phase-1.md](phase-1.md).
