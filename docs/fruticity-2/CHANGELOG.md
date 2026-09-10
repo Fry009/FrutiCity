@@ -1,5 +1,19 @@
 # FrutiCity 2 — cambios
 
+## 2.0.0 — 10 de septiembre de 2026
+
+Primera versión etiquetada. Recoge las fases 1 a 4 del plan.
+
+`bundleVersion` 0.1.0 → **2.0.0**, `AndroidBundleVersionCode` 1 → 2. Etiqueta `v2.0.0` en los dos repositorios (juego `e099f20`).
+
+**Verificado en esta versión:** 115/115 pruebas EditMode · build de Windows correcto · APK de Android **IL2CPP/ARM64 de 116 MB instalado y arrancado en un dispositivo real** (Redmi, Android 15, sin `FATAL` en logcat) · veinte capturas del ejecutable miradas una a una.
+
+**Lo que esta versión NO trae**, para que el número no prometa de más: eventos, temporadas, álbum, compras dentro de la aplicación y Firebase. La tienda sigue siendo offline y no hay ningún cobro activado. El scroll de la ciudad recuerda dónde estabas al volver de un nivel, pero todavía no entre sesiones.
+
+Un aviso que conviene no perder: **el atajo de Mono/ARMv7 del `ProjectBuilder` ya no sirve** para el móvil de Fran. Es un dispositivo de 64 bits puros (`abilist: arm64-v8a`, sin `armeabi-v7a`) y ese APK no se puede instalar ahí. Hay que ir por IL2CPP/ARM64 aunque tarde mucho más.
+
+Y una corrección al registro: el build de Android **nunca falló por IL2CPP**. El log decía `java.io.IOException: Espacio en disco insuficiente`. Los «988 MiB» que la auditoría anotaba como problema de tamaño del APK eran un intermedio de un build fallido, no un APK: el real pesa 116 MB.
+
 ## 2026-09-10 (tarde, II) — fase 4 y minitutorial de mecánicas
 
 - **Casa es la ciudad.** El camino de niveles deja de vivir en una ventanita de 530 px dentro de otra pestaña y pasa a ser la pantalla, con las utilidades fijas arriba y un solo botón grande abajo.
