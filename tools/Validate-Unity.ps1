@@ -2,23 +2,50 @@ param(
     [ValidateSet('BuildWindows', 'BuildAndroidApk', 'Tests', 'SnapshotOnly')]
     [string]$Action = 'BuildWindows',
     [string]$EditorPath = 'C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Unity.exe',
-    [string]$SnapshotPath = ''
+    [string]$SnapshotPath = '',
+    # Reutiliza el snapshot automatico mas reciente en vez de crear uno nuevo. Es el modo por
+    # defecto porque una carpeta nueva obliga a Unity a reimportar los ~6500 assets de los
+    # paquetes desde cero: veinticinco minutos por validacion, la mayoria en importar iconos
+    # del Memory Profiler. Reutilizando, la Library sigue caliente y la vuelta baja a minutos.
+    # Con -FreshSnapshot se fuerza la copia limpia, que es lo que hay que hacer cuando se
+    # sospecha de la propia cache de importacion.
+    [switch]$FreshSnapshot
 )
 $ErrorActionPreference = 'Stop'
 $frutiRepository = Split-Path -Parent $PSScriptRoot
 $frutiSource = Join-Path $frutiRepository 'FrutiCity'
 $frutiValidationRoot = [IO.Path]::GetFullPath((Join-Path $frutiRepository '.validation'))
 if ([string]::IsNullOrWhiteSpace($SnapshotPath)) {
-    $SnapshotPath = Join-Path $frutiValidationRoot ('unity-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+    $frutiWarm = $null
+    if (-not $FreshSnapshot -and (Test-Path -LiteralPath $frutiValidationRoot)) {
+        $frutiWarm = Get-ChildItem -LiteralPath $frutiValidationRoot -Directory |
+            Where-Object { $_.Name -match '^unity-\d{8}-\d{6}$' -and (Test-Path -LiteralPath (Join-Path $_.FullName 'Library')) } |
+            Sort-Object Name -Descending | Select-Object -First 1
+    }
+    if ($frutiWarm) { $SnapshotPath = $frutiWarm.FullName }
+    else { $SnapshotPath = Join-Path $frutiValidationRoot ('unity-' + (Get-Date -Format 'yyyyMMdd-HHmmss')) }
 }
 $frutiSnapshot = [IO.Path]::GetFullPath($SnapshotPath)
 if (-not $frutiSnapshot.StartsWith($frutiValidationRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
     throw 'The validation snapshot must be inside the repository .validation folder.'
 }
 if (-not (Test-Path -LiteralPath $EditorPath -PathType Leaf)) { throw "Unity Editor not found: $EditorPath" }
+# Cada ejecucion deja una copia completa del proyecto, Library incluida. Treinta y cinco de
+# ellas llenaron el disco y el build murio con ENOSPC resolviendo paquetes, sin un solo
+# "error CS" en el log. Solo se podan las carpetas con nombre automatico: las que alguien
+# ha bautizado a mano (fruticity2-phase1, unity-mobile-mono) se quedan.
+if (Test-Path -LiteralPath $frutiValidationRoot) {
+    Get-ChildItem -LiteralPath $frutiValidationRoot -Directory |
+        Where-Object { $_.Name -match '^unity-\d{8}-\d{6}$' -and $_.FullName -ne $frutiSnapshot } |
+        Sort-Object Name -Descending |
+        ForEach-Object { Remove-Item -LiteralPath $_.FullName -Recurse -Force -ErrorAction SilentlyContinue }
+}
 New-Item -ItemType Directory -Force -Path $frutiSnapshot | Out-Null
 foreach ($frutiFolder in @('Assets', 'Packages', 'ProjectSettings')) {
-    & robocopy (Join-Path $frutiSource $frutiFolder) (Join-Path $frutiSnapshot $frutiFolder) /E /R:1 /W:1 /NFL /NDL /NJH /NJS /NP
+    # /MIR y no /E: al reutilizar el snapshot, un script borrado en el proyecto sobreviviria
+    # en la copia y Unity compilaria la clase dos veces. Solo espeja esas tres carpetas;
+    # Library es hermana suya y no la toca, que es justo lo que la mantiene caliente.
+    & robocopy (Join-Path $frutiSource $frutiFolder) (Join-Path $frutiSnapshot $frutiFolder) /MIR /R:1 /W:1 /NFL /NDL /NJH /NJS /NP
     if ($LASTEXITCODE -ge 8) { throw "Snapshot copy failed: $frutiFolder" }
 }
 Write-Output "Validation snapshot: $frutiSnapshot"

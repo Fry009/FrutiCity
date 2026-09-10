@@ -1,0 +1,14 @@
+{
+  "source": "Unity MCP run_tests / get_test_job",
+  "unityVersion": "6000.6.0f1",
+  "jobId": "dfe7be808f574c02aa91a832c38a880e",
+  "startedUnixMs": 1789026652511,
+  "finishedUnixMs": 1789026674983,
+  "mode": "EditMode",
+  "total": 115,
+  "passed": 115,
+  "failed": 0,
+  "skipped": 0,
+  "durationSeconds": 3.5821873,
+  "notes": "97 existing tests plus 4 previously undiscovered theme tests and 14 component cases. Fixes include ModalMotion Unity null handling and test lifecycle dispatch."
+}

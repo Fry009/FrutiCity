@@ -1,5 +1,7 @@
 # FrutiCity Diorama — pipeline de arte
 
+> Documento histórico del 9. La regla del usuario del 10 exige conservar el arte del 8: ver [dirección vigente](art-direction.md). Las recetas de este documento se conservan como experimentos, no son una orden de regenerar ni reemplazar assets del juego.
+
 Fase 1, 2026-09-09. El canon procedural se incorpora en `art/blender/diorama_style.py`. Importarlo no importa `bpy`, no crea objetos y no cambia escenas. Los generadores antiguos siguen intactos; sus renders y los personajes que usa Unity **todavía no están migrados**.
 
 ## Fuente y uso
