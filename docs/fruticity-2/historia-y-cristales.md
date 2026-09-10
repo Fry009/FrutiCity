@@ -165,6 +165,20 @@ Seis caras y **sombreado plano**: en cuanto se suaviza, las facetas desaparecen 
 
 **Trampa pagada**: en la primera versión el alma interior estaba modelada **y no se veía un solo píxel de ella**, porque el cuerpo era opaco — geometría muerta que se renderiza para nada. El cuerpo pasa a translúcido por Fresnel (centro 0,72) y ahora se le ve el fondo, que es lo que hace que una gema parezca cara. Mismo truco que el hielo, y **la misma trampa**: `Facing` vale 0 mirando de frente y 1 en el canto, no al revés.
 
+## 2 sexies. El HUD de cuatro píldoras: hecho
+
+La fila pasó de tres a cuatro, y **no fue meter una más**. Las tres viejas medían 163, 143 y 176 px y ocupaban de 18 a 522 de los 540: no cabía nada. Se rehizo entera.
+
+- Píldoras de **126 px**: 4×126 + 3×6 de hueco = 522, con 9 de margen a cada lado.
+- Icono de 64 a **52 px**, número de cuerpo 23 a **20**.
+- Cifras acortadas por encima de diez mil: `12,3K` en vez de `12.400`. Por debajo se escribe entero, porque ahí cada moneda cuenta.
+
+Lo que **no** se tocó: el icono asomando por fuera del borde. Es lo que le da el aire de juego; meterlo dentro convierte la fila en una tabla de datos.
+
+**Trampa pagada:** los contadores no pueden ajustar línea. `UiKit.Label` lo hace por defecto, y con las píldoras estrechas «50 / 50» salió **partido en dos líneas**, medio fuera de la píldora. Ahora desbordan en horizontal —si un número no cabe, que asome— y el texto de rayos es `50/50` sin espacios.
+
+**El `+` sólo en monedas y rayos.** Estrellas y cristales se ganan jugando; ponerles un `+` sería prometer un atajo que no existe.
+
 ## 3. Lo que habría que construir
 
 En orden, y ninguno depende de cuentas ni credenciales:

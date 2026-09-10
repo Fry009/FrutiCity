@@ -1,5 +1,20 @@
 # FrutiCity 2 — cambios
 
+## 2.2.0 — cristales, cuatro monedas y la historia enganchada
+
+`bundleVersion` 2.1.0 → **2.2.0**, `AndroidBundleVersionCode` 3 → 4. Etiqueta `v2.2.0` en los dos repositorios. Sigue siendo **estable y autónoma, sin Firebase**.
+
+- **Cristales morados**: reglas, arte 3D y contador. El saldo **se calcula en vez de guardarse**, así que la granja y el bloqueo son imposibles por construcción. Puertas de 6 con el bonus pagando 2 como mínimo — sin eso, la primera puerta encerraría al jugador de salida.
+- **El HUD pasa a cuatro píldoras.** No fue añadir una: las tres viejas ocupaban de 18 a 522 de los 540 y hubo que rehacer la fila entera.
+- **El gancho entre episodios**, que llevaba escrito en el contenido desde siempre y **no se leía en ningún sitio**. Era la causa de que cada capítulo pareciera empezar de la nada.
+- **Compras idempotentes** por transacción, con memoria en el guardado: antes cada reintento de la tienda regalaba el pack otra vez.
+- **Precios en euros escritos a mano, fuera.**
+- **Cuentas**: arquitectura lista, en modo invitado, esperando credenciales.
+
+**151/151 EditMode** y build de Windows correcto.
+
+Falta para que los cristales sean jugables: **la puerta de capítulo en el mapa** y **el modo bonus** de dos minutos.
+
 ## 2.1.0 — estable, autónoma, **sin Firebase**
 
 `bundleVersion` 2.0.0 → **2.1.0**, `AndroidBundleVersionCode` 2 → 3. Etiqueta `v2.1.0` en los dos repositorios (juego `00c7814`).
