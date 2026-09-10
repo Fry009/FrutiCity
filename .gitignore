@@ -55,3 +55,9 @@ GoogleService-Info.plist.meta
 # Cache de Python: lo genera importar los modelos de art/blender.
 __pycache__/
 *.pyc
+
+# Restos de sesiones del navegador (Playwright MCP): registros de consola,
+# volcados de accesibilidad y capturas sueltas. Son basura de depuracion, y
+# ademas pueden llevar URLs con testigos de sesion dentro.
+.playwright-mcp/
+firebase-login.png
