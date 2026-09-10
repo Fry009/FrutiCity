@@ -1,5 +1,19 @@
 # FrutiCity 2 — cambios
 
+## 2.2.1 — los signos de más, dibujados
+
+`bundleVersion` 2.2.0 → **2.2.1**, `AndroidBundleVersionCode` 4 → 5. Etiqueta `v2.2.1`.
+
+El `+` era **un carácter de la fuente**, y un más tipográfico está pensado para leerse *dentro de una frase*: es fino, se apoya en la línea base y no está centrado en su caja. En un círculo de 28 px salía borroso y descolgado.
+
+`UiKit.PlusButton` lo **dibuja**: dos barras redondeadas, centradas de verdad, con sombra propia y brillo arriba. Nítido a cualquier tamaño porque no depende del renderizado de texto.
+
+**Y el arreglo destapó otro**: al quitar el ajuste de línea, «50/50» dejó de partirse pero empezó a meterse **por debajo** del `+`. Baja a cuerpo 17, y sólo ese contador: los rayos son el único con dos números, y encoger los cuatro para que quepa el más largo dejaría los otros tres pequeños sin motivo.
+
+Es la tercera vez que la misma esquina da guerra. **Cada vez que se toque el ancho de la fila hay que volver a mirar el contador de rayos**, que es el que más caracteres lleva.
+
+151/151 EditMode y build de Windows correcto.
+
 ## 2.2.0 — cristales, cuatro monedas y la historia enganchada
 
 `bundleVersion` 2.1.0 → **2.2.0**, `AndroidBundleVersionCode` 3 → 4. Etiqueta `v2.2.0` en los dos repositorios. Sigue siendo **estable y autónoma, sin Firebase**.
