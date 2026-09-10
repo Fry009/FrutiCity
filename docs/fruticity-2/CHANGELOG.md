@@ -1,5 +1,19 @@
 # FrutiCity 2 — cambios
 
+## 2026-09-10 (noche) — repaso de interfaz pedido por Fran
+
+- **La barra de recursos vuelve a estar siempre visible**, también jugando. Monedas y rayos estrenan un **`+`** que lleva a la tienda (y avisa antes de abandonar una partida en curso). Las estrellas no lo llevan: se ganan jugando, y un `+` ahí prometería un atajo que no existe.
+- **Los botones de ayuda pierden el círculo.** La cara del botón mide 112×52 y el hueco de 56 empezaba en y=2: se salía seis píxeles y asomaba un gajo por debajo de la madera. El `+` se salía otros cuatro.
+- **Fuera la barra de progreso** del tablero: decía lo mismo que la pastilla del objetivo con menos precisión y, vacía, se leía como una raya suelta. Ojo, `progressFill` **no** estaba protegido contra nulo en `UpdateMatchHud`: dejar de crearla sin quitar también su escritura habría reventado el HUD en el primer movimiento.
+- **Fuera el fondo azul de la barra de navegación**, que tapaba el pueblo justo por donde el camino llega abajo.
+- **La ciudad ocupa el alto real del móvil.** El botón de jugar estaba clavado en el diseño de 960 mientras `Fit()` empujaba las pestañas al borde: en un móvil alargado quedaba una franja muerta y el botón a media altura. Ahora el camino se estira con `hudSlack` y el botón va en un zócalo pegado abajo.
+- **La receta de combo tiene dos líneas.** «Las hélices salen cargadas con la bomba» se partía y la segunda línea caía **fuera** de la tarjeta crema, porque `UiKit.Label` desborda en vertical a propósito.
+- **Pestaña Perfil**, con datos reales, **volver a empezar de cero** (conserva las ayudas, y las enseña) y **borrar la partida** (borra todo, y lo dice). El verde es siempre el botón de arrepentirse.
+- **Las estrellas del cartel de victoria ya no pisan el texto.** No era falta de sitio: `StarReveal` recentraba el pivote **sumando** medio alto en Y cuando `UiKit` ancla arriba-izquierda con la Y hacia abajo, así que cada estrella saltaba **56 px hacia arriba** al aparecer. Por el mismo motivo su estallido estaba clavado en una coordenada de una versión anterior, y en el mapa reventaba en mitad de la nada.
+- **Gastar monedas y rayos se ve.** Va enganchado al contador y no a cada sitio que cobra, así que cualquier gasto que se añada después sale animado solo; vuela hacia el último botón pulsado, con piezas más pequeñas y rápidas que las de premio.
+
+Sin login todavía: Google y usuario/contraseña necesitan Firebase Authentication y un proyecto con credenciales. La pantalla de Perfil queda preparada como su sitio.
+
 ## 2.0.0 — 10 de septiembre de 2026
 
 Primera versión etiquetada. Recoge las fases 1 a 4 del plan.
