@@ -1,5 +1,15 @@
 # FrutiCity 2 — cambios
 
+## 2.1.0 — estable, autónoma, **sin Firebase**
+
+`bundleVersion` 2.0.0 → **2.1.0**, `AndroidBundleVersionCode` 2 → 3. Etiqueta `v2.1.0` en los dos repositorios (juego `00c7814`).
+
+**Se puede instalar y jugar entera sin red y sin cuenta.** La partida se guarda en el propio dispositivo: no hay analítica, ni anuncios, ni cobros, ni copia en la nube, ni inicio de sesión. Lo que está enchufado es `OfflineIntegrations`, y sus cuatro servicios dicen que no a todo **a propósito**; la nota está escrita en el propio fichero, no sólo aquí, que es lo único que la pone delante de quien vaya a tocarlo.
+
+La regla que no hay que romper: **nunca dar por bueno un anuncio, una compra, una subida o un premio que no ha ocurrido.** Devolver `true` en esos métodos para «probar» el flujo regalaría monedas de verdad en el guardado de verdad.
+
+Sobre 2.0.0 entra el repaso de interfaz de más abajo. **115/115 EditMode** y build de Windows correcto.
+
 ## 2026-09-10 (noche) — repaso de interfaz pedido por Fran
 
 - **La barra de recursos vuelve a estar siempre visible**, también jugando. Monedas y rayos estrenan un **`+`** que lleva a la tienda (y avisa antes de abandonar una partida en curso). Las estrellas no lo llevan: se ganan jugando, y un `+` ahí prometería un atajo que no existe.
