@@ -135,17 +135,49 @@ Guardar un contador aparte habría exigido además una lista de «niveles ya pag
 
 Las que se **gastan** en la reforma (`state.stars`, una por nivel la primera vez) y las que quedan **registradas por nivel** (`levelRecords[].stars`, la mejor marca) son cosas distintas y no interfieren. Sacar 3★ da una estrella gastable para la casa **y** dos cristales para la puerta: la misma buena partida paga las dos cosas.
 
+## 2 quater. NÚMEROS DEFINITIVOS (sustituyen a los de arriba)
+
+Fran fijó **6 cristales por puerta**, las nueve iguales. Sale, **pero sólo si el nivel de bonus paga 2 como mínimo**:
+
+| | Cristales |
+| --- | --- |
+| 9 puertas × 6 | **54** |
+| Suelo por capítulo si el bonus paga 1 | 5 → **bloqueado en la primera puerta** |
+| Suelo por capítulo con el bonus pagando 2 | 4×1 + 2 = **6** |
+| Suelo de la temporada | 10 × 6 = **60** |
+| Margen en el peor caso | **+6** |
+
+Por eso `ForBonus` tiene un mínimo de 2. **No es un capricho de balance: es lo único que hace que una puerta de 6 no encierre a nadie.** Está escrito junto a `GateCost` para que nadie lo baje sin ver la consecuencia.
+
+El bonus es el **antepenúltimo de cada bloque de cinco** (índices 2, 7, 12…), como pidió Fran. Cae bien además porque deja dos niveles normales después para volver al ritmo antes de la puerta.
+
+**Pagos:** 1★ = 1 · 2★ = 1 · 3★ = 2 · bonus = 2, y 3 si se borda.
+
+## 2 quinquies. El arte del cristal: hecho
+
+`art/blender/modelo_cristal.py`, registrado en `exportar.py` como grupo `RECURSOS`. En `Resources/Art/res_cristal.png`.
+
+```powershell
+blender --background --python art/blender/exportar.py -- cristal
+```
+
+Seis caras y **sombreado plano**: en cuanto se suaviza, las facetas desaparecen y queda una zanahoria morada. Punta de arriba más larga que la de abajo y el conjunto algo ladeado, porque un cristal perfectamente simétrico se lee como un icono y no como un mineral.
+
+**Trampa pagada**: en la primera versión el alma interior estaba modelada **y no se veía un solo píxel de ella**, porque el cuerpo era opaco — geometría muerta que se renderiza para nada. El cuerpo pasa a translúcido por Fresnel (centro 0,72) y ahora se le ve el fondo, que es lo que hace que una gema parezca cara. Mismo truco que el hielo, y **la misma trampa**: `Facing` vale 0 mirando de frente y 1 en el canto, no al revés.
+
 ## 3. Lo que habría que construir
 
 En orden, y ninguno depende de cuentas ni credenciales:
 
-1. **`GameState.crystals`** y el registro de qué niveles ya lo pagaron (para que rejugar no dé más). Mismo patrón que `seenMechanics`: lista de texto, sin subir `SaveVersion`.
-2. **La píldora en la barra**, junto a monedas, estrellas y rayos. Ya son tres y una cuarta aprieta: hay que rediseñar la fila, no encajarla a martillazos.
-3. **El arte del cristal**, en Blender, mismo estudio que las trece piezas (`comun.py`) — si no, se ve el pegote junto a la moneda y el rayo. Morado, facetado, con brillo interior.
-4. **Efectos y sonido propios**, como los que ya tienen monedas y rayos. La animación de gasto ya es genérica: engancha al contador, así que el cristal la hereda sin tocar nada.
-5. **La puerta de capítulo en el mapa**, con su coste visible y qué pasa al abrirla.
+1. ~~Reglas y guardado~~ **HECHO**: `CrystalRules` + `GameState.gatesOpened`, 12 pruebas.
+2. ~~El arte del cristal~~ **HECHO**: `res_cristal.png`.
+3. **La barra pasa a CUATRO píldoras**: monedas, estrellas, cristales y rayos. Las tres de ahora ocupan de 18 a 522 de los 540 disponibles, así que **la cuarta no cabe con el formato actual**: hay que rediseñar la fila entera, no encajarla a martillazos. Es el siguiente paso y el más delicado.
+4. **La puerta de capítulo en el mapa**, con su coste visible y qué pasa al abrirla.
+5. **El modo bonus**: 2 minutos, muchas combinaciones cayendo, progresivo, a máxima puntuación. Sobre el mismo motor de puzle.
 6. **La tienda**, con el cristal como concepto nuevo.
-7. **Tests**: que rejugar no dé cristal, que la puerta no se abra sin pagar, y que el saldo nunca pueda bloquear la partida.
+7. **Efectos y sonido**: los hereda gratis. La animación de gasto está enganchada al contador, no a cada botón.
+
+Las estrellas también tienen que aparecer en el HUD **como recompensa** al ganarlas, no sólo como contador.
 
 ---
 

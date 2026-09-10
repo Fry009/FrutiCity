@@ -30,7 +30,11 @@ EFECTOS = ["humo", "rayo3d", "llama"]
 # hielo y las raices tienen que convivir en la misma casilla que la fruta:
 # si la luz no coincide, se ve el pegote.
 OBSTACULOS = ["hielo", "raiz", "choco"]
-TODAS = FRUTAS + ESPECIALES + EFECTOS + OBSTACULOS
+# Recursos de la interfaz que no son piezas del tablero. El cristal comparte estudio
+# con las trece por el mismo motivo que todo lo demas: va en la MISMA barra que la
+# moneda y el rayo, y si la luz no coincide se ve el pegote.
+RECURSOS = ["cristal"]
+TODAS = FRUTAS + ESPECIALES + EFECTOS + OBSTACULOS + RECURSOS
 
 MUESTRAS = 220
 TAMANOS = (512, 128)
@@ -77,6 +81,8 @@ if __name__ == "__main__":
         pedidas = EFECTOS
     elif len(pedidas) == 1 and pedidas[0].upper() == "OBSTACULOS":
         pedidas = OBSTACULOS
+    elif len(pedidas) == 1 and pedidas[0].upper() == "RECURSOS":
+        pedidas = RECURSOS
     fallos = []
     for n in pedidas:
         try:
