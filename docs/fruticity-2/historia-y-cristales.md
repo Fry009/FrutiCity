@@ -83,6 +83,16 @@ Puerta de **4** cristales por capítulo: ganas 5, gastas 4, acumulas 1. Aprieta,
 
 ---
 
+## 2 bis. Decidido por Fran
+
+**Puertas de 3 cristales.** Ganas 5 por capítulo, gastas 3, acumulas 2.
+
+**Niveles de bonus.** Idea de Fran, y encaja perfecto con el margen anterior: un nivel de bonus da **un cristal extra**, así que sirve para desatascar a quien haya rejugado poco o quiera adelantarse. Modo propuesto por él: **supervivencia** sobre el mismo motor de puzle —sin límite de movimientos, aguantar lo máximo— que es exactamente lo que pide el plan (§13): romper la monotonía **sin construir un minijuego nuevo**.
+
+Dónde ponerlos: uno por capítulo, colgando del camino y no dentro de la fila de niveles, para que se lea como un desvío opcional. El primero, no antes del capítulo 2: el jugador tiene que entender el cristal antes de que le ofrezcan una forma alternativa de conseguirlo.
+
+**Ojo con una cosa**: si el bonus se puede rejugar y dar cristal cada vez, es una granja infinita y las puertas dejan de significar nada. Tiene que dar cristal **una sola vez**, igual que los niveles normales, o dar cristal sólo la primera vez y monedas las siguientes.
+
 ## 3. Lo que habría que construir
 
 En orden, y ninguno depende de cuentas ni credenciales:
@@ -96,6 +106,18 @@ En orden, y ninguno depende de cuentas ni credenciales:
 7. **Tests**: que rejugar no dé cristal, que la puerta no se abra sin pagar, y que el saldo nunca pueda bloquear la partida.
 
 ---
+
+## 3 bis. La historia: el fallo encontrado y arreglado
+
+Fran lo describió así: «si termino un episodio, el siguiente parece que no tiene que ver».
+
+**Tenía razón, y la causa era concreta.** El campo `cliffhanger` está escrito en los diez episodios de `EPISODES.json` desde el principio, se declara en `GameContent.cs`… y **no se lee en ningún sitio**. Nadie lo usaba. La costura entre capítulos existía en los datos y el jugador **no la veía jamás**.
+
+Arreglado: la frutinovela pasa de dos viñetas a **tres momentos**. Tras las dos viñetas viene «En el próximo episodio…», con el gancho y el título del capítulo que viene.
+
+Va al final y no al principio a propósito: un capítulo que se cierra del todo se lee como un final, y uno que se cierra con una pregunta abierta es el que hace querer jugar el siguiente. Y **no se enseña la ilustración del capítulo siguiente**, que destriparía justo lo que se está prometiendo.
+
+El último episodio no tiene gancho: cierra la temporada.
 
 ## 4. Estado al escribir esto
 
