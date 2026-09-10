@@ -25,7 +25,12 @@ ESPECIALES = ["estrella", "moneda", "energia", "caja", "bomba", "cohete", "marti
 # (humo de cohete, rayo de la bola de luz, fuego de la dinamita). Salen del
 # mismo estudio que las trece para que la familia no se rompa.
 EFECTOS = ["humo", "rayo3d", "llama"]
-TODAS = FRUTAS + ESPECIALES + EFECTOS
+# Obstaculos: tampoco son piezas, son TAPAS que se dibujan encima de una fruta.
+# Del mismo estudio por el mismo motivo que los efectos, y ademas porque el
+# hielo y las raices tienen que convivir en la misma casilla que la fruta:
+# si la luz no coincide, se ve el pegote.
+OBSTACULOS = ["hielo", "raiz", "choco"]
+TODAS = FRUTAS + ESPECIALES + EFECTOS + OBSTACULOS
 
 MUESTRAS = 220
 TAMANOS = (512, 128)
@@ -70,6 +75,8 @@ if __name__ == "__main__":
         pedidas = TODAS
     elif len(pedidas) == 1 and pedidas[0].upper() == "EFECTOS":
         pedidas = EFECTOS
+    elif len(pedidas) == 1 and pedidas[0].upper() == "OBSTACULOS":
+        pedidas = OBSTACULOS
     fallos = []
     for n in pedidas:
         try:

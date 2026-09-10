@@ -55,9 +55,53 @@ Verificado en `MatchGame.ResolveClears` antes de escribirlos:
 
 `GameState.seenMechanics` es una lista de texto, no una máscara de bits, porque los obstáculos ya se nombran por texto en el contenido y añadir uno nuevo no debe obligar a repartir bits. **No sube `SaveVersion`**: una partida vieja llega sin la clave, la lista sale vacía y el jugador ve las presentaciones a partir de donde esté. Sigue el mismo patrón de guardas que el resto de listas en `Normalize`.
 
+## Los obstáculos salen de Blender (§6–7, regla de oro)
+
+Pedido por Fran al ver el minitutorial: que se vieran mucho mejor y encajaran. El hielo era un sprite dibujado por código, y la raíz y el chocolate eran **un velo de color plano con un glifo de texto encima** (`╳` y `≈`): a 60 px eso se lee como un icono de "prohibido", no como algo que le pasa a la fruta.
+
+Ahora los tres se modelan por script en Blender, en el mismo estudio que las trece piezas (`comun.py`), y por el mismo motivo que los efectos: **conviven en la misma casilla que la fruta**, así que si la luz no coincide se ve el pegote. `art/blender/modelo_hielo.py`, `modelo_raiz.py`, `modelo_choco.py`, registrados en `exportar.py` como grupo `OBSTACULOS`.
+
+```powershell
+blender --background --python art/blender/exportar.py -- OBSTACULOS
+```
+
+### Cinco trampas pagadas, ninguna con error en consola
+
+1. **`Layer Weight → Facing` vale 0 MIRANDO DE FRENTE y 1 en el canto**, no al revés. Con la rampa cambiada el hielo salió opaco por el centro y translúcido por el borde: un cuadrado azul tapando la fruta. En el visor de imágenes parecía correcto porque compone el alfa sobre blanco; sólo se ve **midiendo el canal alfa del PNG**.
+2. **Raíces, intento 1:** cuatro zarcillos de esquina a esquina cruzándose en el centro. Salía una equis verde enorme, o sea exactamente el glifo que se venía a sustituir.
+3. **Raíces, intento 2:** dos correas horizontales con dos garfios a los lados. Salía una **cara sonriente**: los garfios de ojos y la correa de abajo de boca.
+4. **Las hojas salían de canto.** Con Euler XYZ la matriz es `Rz·Ry·Rx`: la X mete la hoja en el plano de cámara y la **Y** la gira dentro de ese plano; la Z la saca de perfil.
+5. **Chocolate, intento 1:** una caja redondeada con esferas pegadas de goterones y una elipse clara de brillo. Salía un dado marrón con pompones y una pegatina encima, y se veía la costura donde las esferas tocaban la caja.
+
+Lo que funciona: el hielo con alfa real por Fresnel (centro al **36 %**, canto al **95 %**, así que la fruta se lee debajo); las raíces **creciendo desde el borde de abajo** con cinco alturas todas distintas, porque cualquier reparto simétrico alrededor del centro vuelve a leerse como una cara; y el chocolate como **una sola masa** extruida de un contorno cuyo radio ondula con dos senos de periodos primos entre sí, con el brillo hecho por el material y no pintado como un objeto.
+
+La capa de tapas la comparten los tres, así que `UpdateBoard` la devuelve a su estado de fábrica en cada repintado: sin eso, una casilla que tuvo chocolate se quedaba con su escala al 86 % y su tinte al tocarle ser hielo.
+
+## Y sus efectos de rotura
+
+También pedido por Fran. Cada material se rompe a su manera, y el último golpe se nota más que los anteriores: sin esa diferencia el jugador no distingue «le he quitado una capa» de «lo he roto», que es justo lo que necesita para decidir el siguiente movimiento.
+
+| | Partículas | Sonido |
+| --- | --- | --- |
+| Hielo | Lascas duras y rápidas, chispas blancas, anillo frío y halo | Agudo y seco, con aire |
+| Raíz | Astillas de madera hacia los lados, poco vuelo, sin destello | Chasquido de madera |
+| Chocolate | Goterones gordos y lentos, por la rama de gota del pulverizador | Golpe sordo y húmedo |
+
+En el hielo va `Halo` y **no** `Flash`: `Flash` es un fogonazo de pantalla completa, y tres casillas de hielo en una misma cascada dejaban el tablero parpadeando en blanco.
+
+## La fila de ayudas pierde los rótulos
+
+Pedido por Fran. Cada botón llevaba una cinta con el nombre —MARTILLO, MEZCLAR, COHETE, BOMBA— que ocupaba media cara para repetir lo que la pieza ya dice: un martillo se reconoce sin que ponga «MARTILLO» debajo, y cuatro cintas de texto seguidas convertían la fila en un formulario.
+
+El hueco se lo queda la pieza, que pasa de 43 a 52 px, con la chapa de la cuenta y el `+` más grandes a la derecha.
+
+Se quita también el **«¡TOCA!»** que salía al armar una ayuda: que está armada ya lo dicen el oro, el resplandor de detrás, el salto de 4 px y el giro de la pieza. El texto era el quinto aviso de lo mismo.
+
+`BoosterNames` se conserva porque el modal de compra sí necesita el nombre escrito.
+
 ## Archivos
 
-Nuevos: `Scripts/UI/MechanicIntro.cs`. Modificados: `Scripts/Core/GameState.cs`, `Scripts/Core/GameServices.cs`, `Scripts/UI/FrutiCityApp.cs`, `Scripts/UI/EpisodeJourney.cs`, `Scripts/UI/MatchScreens.cs`.
+Nuevos: `Scripts/UI/MechanicIntro.cs`, `art/blender/modelo_hielo.py`, `modelo_raiz.py`, `modelo_choco.py`, y `Resources/Art/obs_hielo.png`, `obs_raiz.png`, `obs_choco.png`. Modificados: `Scripts/Core/GameState.cs`, `Scripts/Core/GameServices.cs`, `Scripts/UI/FrutiCityApp.cs`, `Scripts/UI/EpisodeJourney.cs`, `Scripts/UI/MatchScreens.cs`, `Scripts/UI/GameFeel.cs`, `Editor/FruitTextureImport.cs`, `art/blender/exportar.py`.
 
 La captura automática incorpora las dos tarjetas de comportamiento, que el modo captura salta a propósito para no bloquear el recorrido: si no se piden a mano, nadie las mira hasta que aparecen en el móvil de un jugador.
 
@@ -65,5 +109,5 @@ La captura automática incorpora las dos tarjetas de comportamiento, que el modo
 
 - **115/115 EditMode aprobadas**, Unity 6000.6.0f1, con la ciudad y el minitutorial dentro.
 - **Build de Windows correcto**, salida 0.
-- **Diecisiete capturas del ejecutable recién construido**, 540×960, en `screenshots/fase-4/`.
+- **Veinte capturas del ejecutable recién construido**, 540×960, en `screenshots/fase-4/`, incluidos los tableros de los niveles 21, 31 y 41, que son donde aparecen por primera vez el hielo, las raíces y el chocolate. El nivel 1 no tiene un solo obstáculo, así que las tapas nuevas no salen en `03-match3`.
 - Comprobación rápida de Roslyn limpia tras cada cambio.
