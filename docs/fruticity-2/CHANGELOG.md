@@ -1,5 +1,29 @@
 # FrutiCity 2 — cambios
 
+## 2.4.0 — el reloj de los rayos
+
+`bundleVersion` 2.3.0 → **2.4.0**, `AndroidBundleVersionCode` 6 → 7. Etiqueta `v2.4.0` en los dos repositorios.
+
+**La energía era el único recurso que se regeneraba a escondidas.** El jugador veía «12/50» y no tenía forma de saber si el siguiente rayo llegaba en diez segundos o en cinco minutos. El único sitio que lo decía era el cartel de «te faltan rayos» — o sea, justo cuando ya era tarde. Un contador de espera que sólo aparece al bloquearte se lee como un castigo; puesto donde se ve siempre, se lee como una promesa.
+
+Debajo de la píldora de rayos hay ahora un reloj con la cuenta atrás y una **barra de carga**, que dice lo mismo que el número sin tener que leerlo: de un vistazo se sabe si merece la pena esperar o irse a decorar. Con la barra llena pone **LLENO** en verde y no cuenta nada, porque no hay nada que contar.
+
+### Los cinco minutos
+
+Lo pidió Fran al pedir el reloj. **Eran tres**, y ese es justo el motivo de que el número no importase hasta ahora: no se veía en ningún sitio.
+
+Lo que cambia: la barra entera pasa de **2 h 30 a 4 h 10**. Con 50 de tope y 5 por partida son diez partidas por barra, o sea unos **25 minutos por partida** — el ritmo de la referencia, donde una vida tarda media hora. Si alguna vez se quiere volver atrás, `EnergyIntervalSeconds` es el **único** número que hay que tocar.
+
+Y ahí estaba escondido un defecto: el cartel de «te faltan rayos» decía «Vuelve un rayo cada 3 minutos» **escrito a mano**. Habría empezado a mentir en cuanto se tocase el intervalo, que es la clase de mentira que el jugador comprueba con un reloj de verdad. Ahora los minutos salen de la constante.
+
+### Detalles
+
+- **Los rayos no sueltan el «+1» cayendo**, como hacen las otras tres píldoras: ese hueco lo ocupa el reloj. El premio se escribe **encima del reloj** y el reloj da un bote — y es mejor así, porque el reloj es justo donde el jugador tenía puesto el ojo.
+- Cinco pruebas nuevas sujetan la promesa: que el rayo entra **exactamente** cuando el reloj marca cero y no un segundo antes, que gastar desde el tope arranca la cuenta entera, que el tiempo fuera de la aplicación paga entero y **conserva la fracción** sobrante para el siguiente, y que una barra llena **no acumula tiempo a cuenta** (si lo hiciera, gastar un rayo soltaría otro al instante).
+- La captura de revisión trae `26-reloj-rayos.png`. Hay que gastar energía a mano para sacarla: en modo captura las partidas no cobran, así que la barra está siempre llena y el reloj pondría LLENO.
+
+**165/165 EditMode** y build de Windows correcto.
+
 ## 2.3.0 — el botín por nivel, y cobrar que se nota
 
 `bundleVersion` 2.2.1 → **2.3.0**, `AndroidBundleVersionCode` 5 → 6. Etiqueta `v2.3.0` en los dos repositorios.
