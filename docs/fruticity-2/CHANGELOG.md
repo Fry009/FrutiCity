@@ -1,5 +1,40 @@
 # FrutiCity 2 — cambios
 
+## 2.5.0 — la puerta de cristal
+
+`bundleVersion` 2.4.0 → **2.5.0**, `AndroidBundleVersionCode` 7 → 8. Etiqueta `v2.5.0` en los dos repositorios.
+
+**Los cristales ya tienen dónde gastarse.** Se ganaban, se contaban y se veían en el mapa desde la 2.2.0, y no había puerta: una moneda que sólo sube es una puntuación, no una moneda. Entre barrio y barrio hay ahora una puerta que cuesta **seis cristales**, y esa puerta es lo que convierte «saca tres estrellas en el nivel 7» en una decisión en vez de un capricho.
+
+Las cuentas ya estaban hechas y probadas desde la 2.2.0 (`CrystalRules`): seis por puerta, nueve puertas, y el nivel de bonus pagando dos como mínimo — que es lo único que impide que la primera puerta encierre a quien juegue justito. Aquí sólo se pinta y se cobra. **No hay resta en ningún sitio**: el saldo se calcula restando lo que cuestan las puertas abiertas, así que subir el contador de puertas *es* el cobro.
+
+### Dónde va, y por qué ahí
+
+La puerta va **arriba del barrio al que da paso**, no al final del anterior — aunque en el rollo del mapa sea el mismo sitio. Al terminar un capítulo, el mapa salta al siguiente y lo primero que se ve es la puerta cerrada. Puesta al final del capítulo que acabas de jugar, se queda fuera de la vista justo cuando toca mirarla.
+
+La ficha del capítulo **no se ha tocado**: baja entera dentro de un contenedor y la banda de la puerta se le suma por arriba. Así las doce medidas del capítulo —ilustración, paradas, viñetas, botón— siguen contadas desde cero, que es justo donde se cuela un despiste.
+
+### La puerta cierra de verdad
+
+No es decoración del mapa: un nivel detrás de una puerta cerrada **no se puede completar** aunque se llegue a él por otro camino. El botón grande de abajo pasa a decir «ABRIR EL BARRIO 2» en vez de mandarte a un nivel con candado, la pantalla de victoria no encadena con el nivel de detrás de la puerta, y las paradas del barrio cerrado llevan candado. Si se pudiera entrar por cualquiera de esos tres sitios, la puerta no estaría cerrando nada.
+
+Tocar un nivel con candado **no suelta un aviso**: abre el cartel de la puerta, que es donde el jugador puede hacer algo. Y el cartel dice de dónde salen los cristales que le faltan —de las estrellas—, porque un cartel que sólo dice «te faltan 2» deja al jugador sin saber qué hacer con la tarde. El mapa, con sus chapitas, ya le dice en qué niveles están.
+
+### La partida vieja
+
+Una guardada antes de las puertas llega con medio mapa hecho y `gatesOpened` a cero: sin rescate, al actualizar se encontraría **el barrio en el que estaba jugando cerrado con llave**. Se abren las puertas de los barrios donde ya hay niveles superados, y **no se regalan cristales**: el saldo se recalcula solo y queda exactamente igual que el de quien hubiera jugado con las puertas puestas desde el principio.
+
+El rescate mira los niveles **superados**, no `nextLevel`, y por eso puede ejecutarse en cada arranque sin marca en el guardado ni riesgo de ir sumando puertas. Con `nextLevel` habría regalado la primera puerta a todo el que terminase el primer barrio — que es exactamente lo que rompería el sistema entero. Hay prueba de las dos cosas.
+
+### Trampas pagadas, mirando las capturas
+
+- El marco, a 316 px de ancho, se leía como **una valla o un cartel**. Una puerta que no parece una puerta no se toca: ahora es más alta que ancha.
+- La puerta abierta era **un marco de nada**. Lo que la hace una puerta es que por ella se vea el camino seguir: cielo arriba, camino abajo y dos tramos que se estrechan al fondo, que es toda la perspectiva que hace falta a ese tamaño.
+- El candado, centrado y a 34 px, **se comía el número** y las cinco paradas se volvían cinco piedras grises iguales. Va en una esquina y más pequeño.
+- El «¡AQUÍ!» sobre una parada con candado decía dos cosas a la vez —«es tu turno» y «está cerrado»— y la primera es mentira: mientras la puerta siga cerrada, el turno es de la puerta.
+
+**174/174 EditMode** y build de Windows correcto. Capturas en `artifacts/puerta2/`: cerrada, su cartel y abierta.
+
 ## 2.4.0 — el reloj de los rayos
 
 `bundleVersion` 2.3.0 → **2.4.0**, `AndroidBundleVersionCode` 6 → 7. Etiqueta `v2.4.0` en los dos repositorios.
