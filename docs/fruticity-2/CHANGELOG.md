@@ -35,6 +35,10 @@ El rescate mira los niveles **superados**, no `nextLevel`, y por eso puede ejecu
 
 **174/174 EditMode** y build de Windows correcto. Capturas en `artifacts/puerta2/`: cerrada, su cartel y abierta.
 
+### Sonidos con voz grabada (tras la 2.5.0)
+
+La moneda, el cristal y el rayo dejan de sintetizarse y suenan con clips de **Mixkit** (licencia libre comercial, sin atribución) en `Resources/Audio/Sfx/`: `sfx_coin` («Winning a coin, video game», 1.1 s), `sfx_crystal` («Crystal chime», 2.0 s) y `sfx_rayo` («Futuristic electricity sparks», 2.9 s), que comparten la energía y la bola de luz. `GameFeel.Tone` carga primero el clip y, si no existe, sintetiza como siempre: cada id suena antes y después. **175/175 EditMode.**
+
 ## 2.4.0 — el reloj de los rayos
 
 `bundleVersion` 2.3.0 → **2.4.0**, `AndroidBundleVersionCode` 6 → 7. Etiqueta `v2.4.0` en los dos repositorios.
