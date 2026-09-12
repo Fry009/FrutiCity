@@ -1,5 +1,53 @@
 # FrutiCity 2 — cambios
 
+## 2.3.0 — el botín por nivel, y cobrar que se nota
+
+`bundleVersion` 2.2.1 → **2.3.0**, `AndroidBundleVersionCode` 5 → 6. Etiqueta `v2.3.0` en los dos repositorios.
+
+**Cada nivel es una veta, y paga cada cosa una sola vez.** Antes las tres recompensas se contaban en tres sitios distintos —las monedas en `ProgressionService`, los cristales en `CrystalRules`, las estrellas en ninguno— y el jugador no tenía forma de saber qué le quedaba por sacar de un nivel. Rejugar era una lotería: a veces pagaba y a veces no, y nunca se sabía por qué.
+
+`Core/LevelLoot.cs` dice la regla **una vez** y la dice para las tres monedas: lo que hay dentro, lo que ya salió, y lo que queda. Ninguna de las tres cuentas se guarda: las tres se deducen de la mejor marca del nivel y de si está completado, que es lo mismo que ya hacían los cristales y la razón de que no se puedan desincronizar ni regalar dos veces.
+
+### Lo que cambia al jugar
+
+- **Las estrellas se extraen, no se regalan.** La primera victoria pagaba UNA estrella y las demás ninguna, jugases como jugases: bordar un nivel no valía nada y el jugador no podía saberlo. Ahora un nivel guarda tres y paga **las que falten** respecto a su mejor marca. Volver y hacerlo mejor suelta exactamente lo que quedaba; volver y hacerlo igual no suelta nada.
+- **El suelo no baja**: la primera victoria sigue pagando como mínimo una estrella. Ninguna partida en curso se queda sin poder pagar sus reformas.
+- **Los cristales se apuntan solos.** No se conceden en ningún sitio nuevo: salen de la marca que acaba de subir, recontados por `CrystalRules`. El cristal que faltaba aparece con la estrella que faltaba.
+
+### Lo que se ve
+
+- **La ficha de antes de entrar** (`LootBoard`) enseña las tres monedas del nivel, una a una, con **lo ya cobrado translúcido** y lo que sigue dentro a todo color, con halo y respirando. Y una línea que lo dice con palabras: «Aquí te quedan 1 estrella y 1 cristal». El cartel crece de 582 a 712 px.
+- **La chapita del mapa** (`LootPill`) sustituye a la fila de tres estrellas sueltas bajo cada parada: ★2/3 y 💎1/2 en 88 px, sobre placa oscura. Dorado = aquí queda algo; verde = aquí no te queda nada. Es lo que permite elegir nivel desde lejos sin abrir ninguna ficha. Las estrellas sueltas contaban media historia —los cristales no salían por ningún lado— y encima iban sin fondo sobre la ilustración, así que sobre un tejado claro se perdían.
+- **La victoria dice lo que ha soltado la veta**, no lo que se ha jugado: «+1 estrella · +1 cristal», o «Este nivel ya estaba vacío» si se repitió uno exprimido. Y los cristales **vuelan al HUD** por primera vez (`GameFeel.FlyTo` acepta ahora un sprite suelto; el cristal es un PNG y no pasa por `FruitModels`).
+
+### Cobrar se ve y se oye, en las cuatro píldoras
+
+Lo pidió Fran: que los cristales y los rayos se sumen con animación y sonido, «como las monedas». Al mirarlo, resultó que **las monedas tampoco lo tenían**: lo que tenían era que la pantalla de victoria y el regalo diario les mandaban monedas *volando*. El contador en sí sólo daba un respingo del icono.
+
+`GainFx` va enganchado al **contador**, igual que el `SpendFx` que ya existía para lo que se paga, y esa es toda la gracia: da igual quién pague —un nivel, una compra, el regalo del día o el temporizador de los rayos—, si el número sube, la píldora **salta entera**, suelta **chispas de su color**, **canta su nota** y escribe **cuánto ha entrado**. No hay que acordarse de llamarlo desde cada sitio que premia.
+
+- **La píldora salta entera** porque ahora cada una vive en su propio contenedor con el pivote centrado. Antes eran cinco piezas sueltas sobre la barra y sólo se podía mover el icono, que es lo que la hacía parecer muerta cuando el número cambiaba. El reparto no se movió ni un píxel: comprobado comparando las capturas antes y después.
+- **Cada recurso tiene su voz.** El cristal sonaba con el tono de la bola de luz y la estrella con el de una fusión: prestados los dos, así que cobrar un cristal se oía igual que reventar un especial del tablero. La estrella es ahora una campana clara de tres notas ascendentes y el cristal es **vidrio**: un armónico que no es múltiplo entero de la fundamental (2,76) y una cola larga. Con un armónico al doble, como el resto, sonaba a moneda cara.
+- **Las estrellas también salen volando al gastarse** hacia la mejora que las cobra. Eran las únicas de las cuatro que se iban del contador en silencio y sin moverse.
+- El **«+3»** que se descuelga de la píldora cae **catorce** píxeles y no veintidós: el hueco es el que hay entre los 68 px donde acaba la píldora y los 96 donde empieza la fila de botones del barrio. Con veintidós se plantaba encima de «Decorar» y «Historia» y parecía una etiqueta de los botones. Medido en la captura.
+- La captura de revisión trae `25-cobro.png`, con los cuatro cobros disparados a la vez y fotografiados a media vida — el caso peor, que es el único que merece la pena mirar.
+
+### Trampas pagadas, mirando las capturas
+
+- La línea de premio de la victoria **no cabe en una**: «12.480 puntos · +3 estrellas · +2 cristales» se pasa de los 442 px y el último premio se cae a un renglón suelto medio fuera del cartel. Van dos líneas.
+- Por lo mismo, la frase de la vitrina **no nombra las monedas** aunque estén sin cobrar: con ellas se va a 58 letras y se parte. La columna de monedas ya las enseña con su cifra.
+- El **cristal se pide más grande que la estrella** (42 px contra 32). El PNG es una gema alta y estrecha y `UiKit.Art` conserva la proporción: a 32 ocupaba catorce de ancho y al lado de una estrella cuadrada parecía un premio de segunda.
+- La placa va **más oscura que el `Deep` de la casa**: con el tono normal, el degradado de `UiKit.Plate` aclara justo la mitad donde caen los iconos y el oro se quedaba a medio camino del fondo.
+- El cartel de nivel **tenía que crecer y bajar el botón**: con el alto viejo, la frutita del pie —que se pega a 820— se quedaba montada encima del botón de jugar.
+
+### Lo que hay que vigilar
+
+**El ritmo de la reforma se acelera.** Las 30 tareas de la historia cuestan 45 estrellas y estaban calibradas con un reparto de 1 por nivel (50 en toda la temporada). Con hasta 3 por nivel, quien juegue bien puede tener las reformas pagadas por el nivel 15. Si eso va demasiado rápido, el número que hay que tocar son los `cost` de `EPISODES.json`, **no** el reparto de estrellas: el reparto es lo que hace que rejugar signifique algo.
+
+Y sigue faltando lo de siempre para que los cristales sean jugables: **la puerta de capítulo en el mapa**. Ahora se ven, se cuentan y se sabe dónde quedan — pero todavía no hay dónde gastarlos.
+
+**160/160 EditMode** y build de Windows correcto. Capturas en `artifacts/botin2/` (el botín) y `artifacts/cobro2/` (el cobro).
+
 ## 2.2.1 — los signos de más, dibujados
 
 `bundleVersion` 2.2.0 → **2.2.1**, `AndroidBundleVersionCode` 4 → 5. Etiqueta `v2.2.1`.
