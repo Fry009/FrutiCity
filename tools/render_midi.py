@@ -104,10 +104,15 @@ def voz(duracion, freq, loud, papel, rng):
     return onda * env * loud * .17
 
 
-def render(path, salida, nombre, desde):
+def render(path, salida, nombre, desde, tempo=1.0):
     notas = leer(path)
     if not notas:
         raise SystemExit('sin notas: ' + str(path))
+    # EL TEMPO se aplica aqui, sobre los tiempos y no sobre el audio ya sintetizado. Estirar
+    # el WAV cambiaria tambien las alturas -la pieza sonaria un tono mas aguda y a ardilla-;
+    # acortando los inicios y las duraciones, la misma orquesta toca mas deprisa.
+    if tempo != 1.0:
+        notas = [(s / tempo, d / tempo, p, v, c) for s, d, p, v, c in notas]
     origen = min(n[0] for n in notas)
     notas = [(s - origen - desde, d, p, v, c) for s, d, p, v, c in notas]
     notas = [n for n in notas if n[0] >= 0 and n[0] < MAX_SEGUNDOS]
@@ -154,10 +159,27 @@ def render(path, salida, nombre, desde):
                 source=path.name, ogg_bytes=destino.stat().st_size)
 
 
+# El tema del nivel de bonus. Es la MISMA pieza de la lista -la Danza de los duendes, que ya
+# acelera sola hacia el final- pero tocada a 1.4x: 190 s de original se quedan en 136, que
+# cubre los 120 del nivel con cola de sobra. El AudioSource de la musica no repite (loop=false),
+# asi que una pista mas corta que el nivel dejaria los ultimos segundos en silencio, que es
+# justo donde mas falta hace que suene.
+EXTRAS = [
+    ('bonus_theme', 'Danza de los duendes · Grieg (a la carrera)', 'Danza de los Duendes - Grieg.mid', 0, 1.40),
+]
+
+
 if __name__ == '__main__':
+    solo = sys.argv[1:] or None
     informe = []
-    for indice, (nombre, fichero, desde) in enumerate(PISTAS):
-        informe.append(render(FUENTE / fichero, 'classical_%02d' % indice, nombre, desde))
-        print(json.dumps(informe[-1], ensure_ascii=False), flush=True)
-    (WORK / 'sources.json').write_text(json.dumps(informe, ensure_ascii=False, indent=2), encoding='utf-8')
+    if solo is None or 'clasicas' in solo:
+        for indice, (nombre, fichero, desde) in enumerate(PISTAS):
+            informe.append(render(FUENTE / fichero, 'classical_%02d' % indice, nombre, desde))
+            print(json.dumps(informe[-1], ensure_ascii=False), flush=True)
+    if solo is None or 'bonus' in solo:
+        for salida, nombre, fichero, desde, tempo in EXTRAS:
+            informe.append(render(FUENTE / fichero, salida, nombre, desde, tempo))
+            print(json.dumps(informe[-1], ensure_ascii=False), flush=True)
+    if solo is None:
+        (WORK / 'sources.json').write_text(json.dumps(informe, ensure_ascii=False, indent=2), encoding='utf-8')
     print('TOTAL KB', sum(r['ogg_bytes'] for r in informe) // 1024)
