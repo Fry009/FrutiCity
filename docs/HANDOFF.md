@@ -2,6 +2,87 @@
 
 > Actualización posterior del 6 de septiembre: rediseño visual implementado, compilación Windows correcta (0 errores, 3 avisos), 78/78 pruebas y navegación comprobada en Play. Unity MCP está conectado y registrado en Codex. Consultar [revisión UX/UI](UX_UI_REVIEW.md) y [Unity MCP](UNITY_MCP.md). El resto de este documento conserva el estado anterior y sus recetas; las indicaciones de «UI sin mirar» ya están superadas.
 
+## Sesión del 13–14 de septiembre: barrios de diez, nivel de bonus y la fiesta de combos
+
+**Rama:** `efectos-combos-royal` en los dos repositorios, **todo subido**. El del juego va por
+`99a7e54` y el externo por `222c24c`. 192/192 pruebas EditMode en verde (salvo el último
+commit, ver más abajo).
+
+### Lo que se hizo
+
+1. **El barrio pasó de cinco niveles a diez** (`FrutiCity 3.0.0`, commit `af4b2b2`). Hubo un
+   paso intermedio —barrio = dos «capítulos» de cinco— que Fran descartó al verlo: quería los
+   diez niveles en una sola zona. El capítulo ya no existe ni como concepto; toda la geometría
+   vive en `Core/AreaMap.cs`.
+2. **Nivel de bonus** en el quinto de cada barrio (5, 15, 25, 35, 45): contrarreloj, barra
+   estilo Tekken —roja hasta el mínimo, verde hasta el doble—, cinco frutas en vez de seis y
+   música propia. Vive en `UI/MatchBonus.cs`.
+3. **Los especiales atrapados ya no mueren callados** (commit `8fdfa36`), que era un fallo real
+   del motor. Ver abajo.
+4. **El rótulo de combo**, rehecho letra a letra y siguiendo a la jugada (`99a7e54`).
+
+### Las trampas que se pagaron aquí
+
+**El arte del mapa manda sobre la geometría.** `JourneyStops` son coordenadas medidas a mano
+sobre el camino pintado de cada ilustración. Cambiar cuántas paradas tiene un barrio **no es
+una refactorización**: o hay ilustraciones nuevas, o hay que fundir las que existen. Se optó
+por fundirlas (`tools/merge_journey_art.py`), y por eso las diez ilustraciones viejas siguen en
+`Resources/Art/Journey/` aunque el juego ya no las cargue: el compositor las necesita.
+
+**Las ilustraciones del viaje no tienen generador.** Salieron de un `image_gen` con los prompts
+de `JOURNEY_IMAGE_PROMPTS.json`. Sin esa herramienta no se pueden rehacer, sólo recomponer.
+
+**Los cuartos de la reforma tienen cuatro etapas modeladas a mano** en `art/blender/reforma.py`.
+Por eso un barrio de seis tareas reforma DOS cuartos de tres, y no uno de seis: añadir etapas es
+amueblar, no subir un bucle.
+
+**`ProjectBuilder.ConfigureProject()` pisa la versión.** La línea 57 escribe
+`PlayerSettings.bundleVersion = "0.1.0"` en cada compilación, así que el `3.0.0` del
+`ProjectSettings.asset` no llega nunca al APK. **Decisión pendiente de Fran.**
+
+**Medir antes de ajustar, también el balance.** La puntuación del bonus se estimó a ojo en ~250
+por jugada y la medida real son **982**. Hay una prueba que lo mide y lo imprime
+(`BonusLevelTests.TwentyFourMovesTellWhetherTheMinimumIsReachable`); si se tocan los mínimos, se
+mira ese número y no la intuición.
+
+**`FindHint()` devuelve `From == To` cuando hay un especial**, y eso significa «toca este
+especial», no «intercambia». Pasárselo a `TrySwap` lo rechaza. Cazó a la primera versión de la
+prueba de medición, que parecía un tablero atascado.
+
+### Corrección importante sobre el móvil
+
+Se dijo —y era **falso**— que el texto se vería borroso en el móvil por la escala ×2,26 y que
+hacía falta mover la escala de `design.localScale` a `scaler.scaleFactor`. Mirando la captura
+del Redmi a 1:1, **el texto más pequeño de la pantalla sale con los bordes limpios**. Unity
+resuelve la escala bien. **Ese refactor no hace falta y tocaba todas las pantallas: no rehacer
+el análisis.**
+
+### Lo que quedó pendiente, y es de Fran
+
+1. **El APK de las 15:02 sin instalar**: el móvil se desconectó de `adb` justo antes. Trae el
+   rótulo que sigue a la jugada. `adb install -r FrutiCity/Builds/Android/FrutiCity-development.apk`.
+2. **Los números del bonus.** Están a 6.000 de mínimo y 1:00 porque los pidió Fran, pero la
+   medida dice que el mínimo cae a las 6 de las 24 jugadas del minuto y el doble a las 12. La
+   propuesta con el dato delante es 10.000 y 20.000, subiendo 2.000 por barrio. **Hay que
+   jugarlo antes de decidir.**
+3. **La versión `0.1.0`** de `ProjectBuilder.cs:57`.
+4. **Peso del APK**: pasó de 123 a 139 MB porque `Resources/Art/Journey` guarda las diez
+   ilustraciones viejas Y las cinco fundidas, y todo lo que está en `Resources/` entra en la
+   compilación aunque nadie lo use. Sacar las viejas de `Resources` recorta unos 25 MB, pero
+   mueve arte entre repositorios.
+5. **El último commit (`99a7e54`) se compiló pero no pasó la suite.** Es puro pintado y ninguna
+   prueba toca `Banner`, pero conviene dejarlo verificado.
+
+### Unity MCP
+
+Registrado ya en el `.mcp.json` del proyecto (antes sólo estaba en la configuración personal de
+Codex). Para usarlo hacen falta **las dos patas**: una sesión nueva del cliente —los servidores
+MCP se cargan al arrancar— y el Editor abierto con `FrutiCity/`, que es quien levanta el puente.
+Las validaciones batch NO lo arrancan y además trabajan sobre la copia de `.validation`.
+
+Merece la pena: el rótulo de combos y el mapa fundido se hicieron **a ciegas**, y cada retoque
+visual costó veinte minutos de compilación de Android para ver si había quedado bien.
+
 ## Sesión del 7 de septiembre: combos, efectos 3D, mapa y música
 
 Se trabajó con el vídeo de referencia de Royal Match delante (`iSaTx0T9GFw`, descargado
