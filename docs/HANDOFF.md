@@ -2,6 +2,50 @@
 
 > Actualización posterior del 6 de septiembre: rediseño visual implementado, compilación Windows correcta (0 errores, 3 avisos), 78/78 pruebas y navegación comprobada en Play. Unity MCP está conectado y registrado en Codex. Consultar [revisión UX/UI](UX_UI_REVIEW.md) y [Unity MCP](UNITY_MCP.md). El resto de este documento conserva el estado anterior y sus recetas; las indicaciones de «UI sin mirar» ya están superadas.
 
+## FrutiCity 4.1.0 · 15 de septiembre, noche: por qué el dino se veía a parches
+
+Tres intentos hasta dar con la causa, y merece la pena dejar los tres escritos porque los dos
+primeros eran fallos de verdad —sólo que **no eran el que Fran estaba viendo**—.
+
+1. **Los huesos de la piel.** El perfil *Mobile* usa dos por vértice y el de PC cuatro. Real, y
+   arreglado (`SkinnedMeshRenderer.quality = Bone4`). No era la causa.
+2. **La resolución de la RenderTexture.** Estaba clavada en 224×256, que era el tamaño justo
+   cuando el dino medía 104 px de diseño; al crecer a 285 —y ×2,26 de escala de Canvas, o sea
+   644 píxeles reales— se estaba ampliando dos veces y media. Real, y arreglado: ahora se pide
+   del tamaño al que se va a ver. Tampoco era la causa; sí arregló el contorno, que salía blando.
+3. **EL MAPA DE NORMALES.** `dino_normal.jpg` se importaba con `textureType = Default` mientras
+   el material llevaba el keyword `_NORMALMAP` puesto. URP lo sampleaba esperando la codificación
+   de un normal map y recibía RGB crudo: de ahí los parches planos, que parecían facetas de la
+   malla y no lo eran. **Ésa era la causa.**
+
+> **Cómo se encontró, y cómo encontrar el siguiente:** renderizando el dino aislado en el editor
+> a 644 px —el tamaño real de pantalla— y mirando el PNG. Es el mismo bucle que usa Fran para el
+> arte en Blender, y **cuesta segundos en vez de los diez minutos de un APK**. Los dos primeros
+> intentos se pagaron a compilación cada uno; el tercero salió a la primera porque dejé de
+> compilar y me puse a mirar.
+
+### Lo que se añadió
+
+- **El dino salta** cuando encaja un golpe gordo —cascada, o jugada de cinco o más—. El rig no
+  trae clip de salto, así que el brinco se hace moviendo la caja: medio seno, sin rebote, porque
+  se está llevando un golpe. **La sombra no salta con él**: se queda en el suelo y encoge, que es
+  lo que convierte «el dibujo ha subido» en «el bicho ha despegado».
+- **Rugido grabado** (`Resources/Audio/Sfx/sfx_roar.mp3`), de Mixkit bajo su *Sound Effects Free
+  License* —uso comercial, sin atribución—, igual que los tres sonidos que ya había. Elegido
+  midiendo los dieciocho de su página de rugidos: duración y energía por debajo de 300 Hz. Está
+  recortado a 2,55 s **con el pico en 0,98 s**, que es el fotograma donde la animación abre la
+  boca del todo (`BossStage.RoarPeak` = 1,0 s). Y va en `DecompressOnLoad`: en *Streaming* —como
+  viene por defecto— el clip se abre al pedirlo y el rugido llega tarde a su propia boca.
+
+### Pendiente, y es de Fran
+
+- Los otros tres efectos (`sfx_coin`, `sfx_crystal`, `sfx_rayo`) siguen en **Streaming**, que en
+  un sonido corto mete el mismo retardo. No se tocaron porque funcionan y nadie se ha quejado;
+  igualarlos son tres líneas.
+- El `sfx_roar.mp3` es el fichero de **vista previa** de Mixkit, no el de su botón de descarga
+  —que pide interacción con la página—. Es el mismo sonido y la licencia lo cubre; si se quiere
+  el oficial, se baja de la página y se sustituye el archivo, sin tocar código.
+
 ## FrutiCity 4.0.0 · 15 de septiembre, tarde: el jefe en el móvil, y lo que sólo se ve allí
 
 El jefe pasó por el móvil de Fran y aparecieron **dos fallos que el PC no podía enseñar**, más

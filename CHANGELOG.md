@@ -2,6 +2,23 @@
 
 Cambios reales por fase. Detalle y decisiones en `docs/fruticity-2/audit.md` y `docs/fruticity-2/phase-1.md`.
 
+## FrutiCity 4.1.0 · 2026-09-15 — El dino, ya bien
+
+### Corregido
+- **El dino se veía a parches, y era el mapa de normales.** `dino_normal.jpg` se importaba como
+  `Default` mientras el material llevaba `_NORMALMAP`: URP lo leía esperando la codificación de
+  un normal map y recibía RGB crudo. Marcado como `NormalMap`.
+- **La RenderTexture del teatro se ampliaba 2,5×.** Estaba fija en 224×256, del tamaño que tenía
+  el dino antes de crecer. Ahora se pide del alto al que se va a dibujar, calculado con la escala
+  real del lienzo, y el suavizado baja a ×2 cuando la textura es grande.
+
+### Nuevo
+- **El dino salta** al encajar una cascada o una jugada de cinco o más. La sombra se queda en el
+  suelo y encoge, que es lo que hace que el salto se lea como salto.
+- **Rugido grabado** (Mixkit, *Sound Effects Free License*), recortado a 2,55 s con el pico en
+  0,98 s para que caiga en el fotograma en que la animación abre la boca. En `DecompressOnLoad`:
+  en *Streaming* llegaba tarde.
+
 ## FrutiCity 4.0.0 · 2026-09-15 — El jefe en el móvil
 
 ### Corregido
