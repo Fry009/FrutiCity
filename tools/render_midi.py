@@ -104,7 +104,7 @@ def voz(duracion, freq, loud, papel, rng):
     return onda * env * loud * .17
 
 
-def render(path, salida, nombre, desde, tempo=1.0):
+def render(path, salida, nombre, desde, tempo=1.0, encadena=False):
     notas = leer(path)
     if not notas:
         raise SystemExit('sin notas: ' + str(path))
@@ -151,9 +151,17 @@ def render(path, salida, nombre, desde, tempo=1.0):
         flujo.setparams((2, 2, RATE, 0, 'NONE', 'not compressed'))
         flujo.writeframes((np.clip(mezcla, -1, 1) * 32767).astype('<i2').tobytes())
     destino = OUT / (salida + '.ogg')
-    fin = max(2.0, largo - 3.5)
+    # UNA PISTA QUE SE ENCADENA NO PUEDE LLEVAR DESVANECIDOS. Los dos, el de entrada y el
+    # de salida, son lo que hace que una cancion "acabe"; en una pista puesta a repetir se
+    # oyen como un bajon de volumen cada vuelta, justo en la costura. Se quitan los dos y
+    # se deja que la pieza empalme con su propio principio.
+    if encadena:
+        filtro = 'loudnorm=I=-17:TP=-2:LRA=9'
+    else:
+        fin = max(2.0, largo - 3.5)
+        filtro = 'afade=t=in:st=0:d=1.2,afade=t=out:st=%.2f:d=3.5,loudnorm=I=-17:TP=-2:LRA=9' % fin
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(wav), '-vn', '-map_metadata', '-1',
-                    '-af', 'afade=t=in:st=0:d=1.2,afade=t=out:st=%.2f:d=3.5,loudnorm=I=-17:TP=-2:LRA=9' % fin,
+                    '-af', filtro,
                     '-ar', str(RATE), '-ac', '2', '-c:a', 'libvorbis', '-q:a', '3', str(destino)], check=True)
     return dict(name=nombre, file=salida, seconds=round(largo, 1), notes=len(notas),
                 source=path.name, ogg_bytes=destino.stat().st_size)
@@ -164,8 +172,18 @@ def render(path, salida, nombre, desde, tempo=1.0):
 # cubre los 120 del nivel con cola de sobra. El AudioSource de la musica no repite (loop=false),
 # asi que una pista mas corta que el nivel dejaria los ultimos segundos en silencio, que es
 # justo donde mas falta hace que suene.
+# El tema del JEFE. Otra pieza distinta de la del bonus a proposito: las dos pantallas
+# van contrarreloj y con la misma barra, asi que compartir musica las haria la misma
+# pantalla con un bicho encima. La Badinerie ya es la mas corredora de la lista -flauta
+# a dos por cuatro- y a 1.25x se convierte en una persecucion sin llegar a sonar a cinta
+# acelerada, que es lo que pasaba probando 1.5x. Los 90 s del nivel caben de sobra.
+# La Badinerie a 1.25x dura 74,9 s y el nivel del jefe dura 90: se encadena, que es la
+# unica de las tres salidas que no estropea algo. Bajar el tempo hasta que durase 90 la
+# dejaba en 1.04x -o sea, la pieza normal, que ademas ya suena en la rotacion- y alargar
+# el nivel era cambiar el diseno para tapar un problema de audio.
 EXTRAS = [
-    ('bonus_theme', 'Danza de los duendes · Grieg (a la carrera)', 'Danza de los Duendes - Grieg.mid', 0, 1.40),
+    ('bonus_theme', 'Danza de los duendes · Grieg (a la carrera)', 'Danza de los Duendes - Grieg.mid', 0, 1.40, False),
+    ('boss_theme', 'Badinerie · Bach (a la carrera)', 'Badinerie (Suite Orchestral No. 2) - Bach.mid', 0, 1.25, True),
 ]
 
 
@@ -177,8 +195,8 @@ if __name__ == '__main__':
             informe.append(render(FUENTE / fichero, 'classical_%02d' % indice, nombre, desde))
             print(json.dumps(informe[-1], ensure_ascii=False), flush=True)
     if solo is None or 'bonus' in solo:
-        for salida, nombre, fichero, desde, tempo in EXTRAS:
-            informe.append(render(FUENTE / fichero, salida, nombre, desde, tempo))
+        for salida, nombre, fichero, desde, tempo, encadena in EXTRAS:
+            informe.append(render(FUENTE / fichero, salida, nombre, desde, tempo, encadena))
             print(json.dumps(informe[-1], ensure_ascii=False), flush=True)
     if solo is None:
         (WORK / 'sources.json').write_text(json.dumps(informe, ensure_ascii=False, indent=2), encoding='utf-8')

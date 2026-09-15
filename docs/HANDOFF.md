@@ -2,6 +2,101 @@
 
 > Actualización posterior del 6 de septiembre: rediseño visual implementado, compilación Windows correcta (0 errores, 3 avisos), 78/78 pruebas y navegación comprobada en Play. Unity MCP está conectado y registrado en Codex. Consultar [revisión UX/UI](UX_UI_REVIEW.md) y [Unity MCP](UNITY_MCP.md). El resto de este documento conserva el estado anterior y sus recetas; las indicaciones de «UI sin mirar» ya están superadas.
 
+## Sesión del 15 de septiembre: el JEFE, y el 3D real por fin dentro del Canvas
+
+**Rama:** `efectos-combos-royal`. El décimo nivel de cada barrio —10, 20, 30, 40 y 50— deja de
+ser un nivel de plátanos y pasa a ser un **nivel de jefe**: un dinosaurio cruza un teatrillo
+encima del tablero mientras juegas.
+
+### Lo que se hizo
+
+1. **El dino entra en el juego de verdad, en 3D.** El rig vivía en el proyecto de al lado
+   (`3dFruityCreator`, 27 huesos, 4 animaciones) y ahora está en
+   `Resources/Boss/DinoBoss.fbx`, animado en vivo dentro de la pantalla.
+2. **`UI/BossStage.cs`** — el puente 3D → Canvas (ver abajo, es la decisión que importa).
+3. **`UI/MatchBoss.cs`** — el teatrillo: decorado que corre, barra, reloj, el paseo del bicho,
+   el daño, el rugido, las pisadas y el coletazo final.
+4. **`UI/MatchScoreBar.cs`** — la barra de dos vueltas, sacada del bonus para que la compartan
+   las dos pantallas que acaban por reloj.
+5. **Decorado** (`tools/escenario_jefe.py`) y **música** (Badinerie a 1,25x, encadenada).
+6. **`BossLevelTests.cs`**, que mide el mínimo en veinte tableros e imprime el reparto.
+
+### LA DECISIÓN QUE IMPORTA: cómo se dibuja una malla animada en un Canvas
+
+Estaba anotado como bloqueo del rumbo «3D real en Unity»: **una malla con esqueleto no se
+dibuja en un Canvas en Screen Space Overlay**, y este juego entero es eso. Las salidas
+apuntadas eran pasar el Canvas a Screen Space Camera —que reparte las piezas en capas y toca
+`PieceMotion`, dueño único del transform de cada ficha— o renderizar aparte.
+
+**Se renderiza aparte, y el bloqueo queda resuelto sin tocar el tablero.** El dino vive en su
+capa (la 8, `BossStage`), a 3.000 unidades del origen, con su cámara ortográfica y sus dos
+luces, y sale por una `RenderTexture` que la interfaz enseña en un `RawImage`. Ni una línea de
+`PieceMotion`, ni una capa nueva en el tablero.
+
+Y el detalle que va contra el instinto: **el dino no anda por el mundo 3D, anda por el Canvas.**
+La cámara lo tiene siempre centrado; quien se mueve es el `RawImage`, en píxeles de diseño. El
+paseo tiene que cuadrar al píxel con un marco de interfaz, y todo lo demás en este juego ya se
+mueve así.
+
+### Las trampas que se pagaron aquí
+
+**El ×5 que pidió Fran no cabía, y se supo midiendo.** El mínimo iba a ser cinco veces el del
+bonus (30.000). Medido con el motor sobre veinte tableros a 36 jugadas: el reparto va de
+**10.140 a 34.320**. O sea que 30.000 sólo lo saca el tablero más afortunado jugando de bot, y
+la barra verde (60.000) es **inalcanzable**: ni 45 jugadas perfectas pasan de 39.240. Y el jefe
+cierra el barrio, justo delante de una puerta de cristal **sin margen** (diez niveles a una
+estrella = diez cristales = lo que cuesta la puerta), así que un jefe impasable **encierra al
+jugador**. Se quedó en **15.000, plano para los cinco**: la variación entre tableros (3×) es
+mucho mayor que cualquier rampa por barrio, y poner 15.000→19.000 habría sido precisión falsa.
+
+**La escala del FBX miente.** `SkinnedMeshRenderer.bounds` en pose de reposo daba 236 unidades
+para un bicho de 1,9: el FBX trae escala 100 en los hijos y `fileScale` 0,01. Las `localBounds`
+se fijan a mano en `BossStage`, o Unity culea el bicho fuera de pantalla al acercar la cámara.
+
+**El encuadre está medido, no estimado.** Se renderizaron los cuatro clips fotograma a
+fotograma midiendo la caja del alfa: el dino ocupa **1,631 × 1,975 unidades**, centrado en el
+origen. De ahí salen `Frame` y la proporción de la textura. Y agrandar al bicho es tocar DOS
+números a la vez —la caja del `RawImage` y `BossStage.Frame`—: subir sólo la caja agranda el
+aire de alrededor.
+
+**Rig Legacy, no Generic.** El README del dino recomienda Generic, y para un proyecto normal
+tiene razón. Aquí no: Legacy es el único rig que se conduce entero desde código sin un
+`AnimatorController` guardado como asset, y esta aplicación no tiene **ni un solo** asset de
+escena.
+
+**Una textura que se repite no puede ser «no potencia de dos» sin decírselo a Unity.** El
+decorado mide 2112×220 y Unity lo importaba como 2048×256: estirado a lo alto y con el espejo
+descuadrado, que es justo lo que hacía que la costura empalmara. `npotScale = None` y
+`wrapMode = Repeat`, y los dos ajustes viven en `FruitTextureImport.cs` para que regenerar el
+PNG no se los lleve por delante.
+
+**Una pista que se encadena no puede llevar desvanecidos.** La Badinerie a 1,25x dura 74,9 s y
+el nivel 90, y el `AudioSource` de la música no repetía: los últimos quince segundos —los de
+«llega o no llega»— se jugaban en silencio. Se rinde sin `afade` y se pone `loop` sólo para
+este tema.
+
+**El mobiliario de calle dibujado en PIL no casa con el pueblo pintado.** Fran pidió una parada
+de autobús. Se dibujó dos veces —vector con la paleta de la interfaz, y silueta oscura con filo
+de luz— y las dos quedaban pegadas encima o directamente parecían un fallo de carga. Está
+apagado tras `MOBILIARIO = False` en `tools/escenario_jefe.py`, con el acta de lo probado. Una
+parada de verdad pide un asset del mismo estilo, no formas de PIL.
+
+**De propina, un fallo que ya estaba:** `GoalDescription` no sabía de las pantallas por reloj y
+caía en la última rama, así que el nivel de bonus llevaba desde que existe anunciándose como
+«Limpia 0 casillas de mermelada».
+
+### Cómo se juega
+
+El dino cruza en **60 segundos** si nadie le toca, y el nivel dura **90**. Cada combinación le
+hace daño y le **empuja hacia atrás** (6 px de base, más por celdas y por cascada, tope 30), así
+que hay que pegarle unas dieciséis veces en minuto y medio para que no llegue. Hay **dos
+maneras de perder**: que se acabe el reloj sin llegar a 15.000, o que el bicho alcance a la
+fruta y se la meriende de un coletazo —sincronizado al fotograma 21 del clip, 0,875 s, que es
+donde el rig dice que la cola alcanza su punta de velocidad—.
+
+El empuje **no decae**, y es a propósito: con tableros que varían 3× por semilla, hacerlo decaer
+castigaría la mala suerte en vez de la dejadez.
+
 ## Sesión del 13–14 de septiembre: barrios de diez, nivel de bonus y la fiesta de combos
 
 **Rama:** `efectos-combos-royal` en los dos repositorios, **todo subido**. El del juego va por
