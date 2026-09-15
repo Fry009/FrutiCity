@@ -53,17 +53,21 @@ SALIDA = os.path.join(ARTE, 'boss_stage.png')
 # El escenario mide 500 x 110 pixeles de diseno; la tira se pinta a x2 porque el Canvas
 # escala x2,26 en el Redmi.
 ESCALA = 2
-ALTO = 110 * ESCALA
-BANDA_Y = 700          # medido mirando las bandas candidatas, no elegido a ojo
-# LA ALTURA DEL RECORTE SE ELIGE PARA QUE LA TIRA MIDA 2048, no por gusto: 941 x 202
-# escalado a 220 de alto da 1024 de ancho, y la tira espejada 2048 clavados. El limite de
-# textura de Unity en movil y en escritorio es 2048, asi que con un pixel mas Unity la
-# reescala ella -y al reescalar descuadra el espejo, que es justo lo que hace que la
-# costura empalme-.
-ALTO_BANDA = 202
-# Y el ancho de la mitad se CLAVA en 1024. El recorte da 1025 por redondeo, y un pixel de
-# mas pone la tira en 2050: por encima del limite, o sea reescalada por Unity. Forzar 1024
-# es un 0,1% de deformacion, que no se ve ni midiendolo.
+# EL ESCENARIO CRECE EN LOS MOVILES ALARGADOS. El diseno base le da 110 px de alto, pero un
+# movil de 20:9 deja 120 px libres por arriba y el teatro se los queda: puede llegar a 226.
+# La tira se pinta para el caso MAS ALTO y el juego ensena de ella la franja de abajo que le
+# quepa (uvRect.height). Al reves -pintarla para 110 y estirarla- el pueblo salia aplastado
+# al doble de alto en cuanto el teatro crecia.
+ALTO_DISENO_MAX = 300
+ALTO = ALTO_DISENO_MAX * ESCALA
+# EL BORDE DE ABAJO NO SE MUEVE: es donde pisa el dino. Lo que se gana al crecer es CIELO,
+# asi que la banda se estira hacia arriba desde el mismo pie de la ilustracion.
+PIE_FUENTE = 902
+ALTO_BANDA = 551   # lo mas alto que da la ilustracion sin salirse por arriba
+BANDA_Y = PIE_FUENTE - ALTO_BANDA
+# El ancho de la mitad se CLAVA en 1024, y la tira espejada mide 2048 justos. El limite de
+# textura de Unity en movil y en escritorio es 2048: con un pixel mas la reescala ella, y al
+# reescalar descuadra el espejo, que es justo lo que hace que la costura empalme.
 MEDIA_ANCHO = 1024
 
 # EL MOBILIARIO DE CALLE ESTA APAGADO, y el codigo se queda como acta de lo que se probo.
@@ -167,7 +171,7 @@ def _papelera(d, x, suelo):
 def construir():
     fondo = _banda().convert('RGBA')
     media = fondo.width
-    suelo = int(ALTO * 0.88)
+    suelo = int(ALTO * 0.942)   # el mismo punto de la ilustracion que antes, en la banda alta
 
     if MOBILIARIO:
         calle = Image.new('RGBA', (media, ALTO), (0, 0, 0, 0))

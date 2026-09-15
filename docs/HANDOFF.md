@@ -2,6 +2,79 @@
 
 > Actualización posterior del 6 de septiembre: rediseño visual implementado, compilación Windows correcta (0 errores, 3 avisos), 78/78 pruebas y navegación comprobada en Play. Unity MCP está conectado y registrado en Codex. Consultar [revisión UX/UI](UX_UI_REVIEW.md) y [Unity MCP](UNITY_MCP.md). El resto de este documento conserva el estado anterior y sus recetas; las indicaciones de «UI sin mirar» ya están superadas.
 
+## FrutiCity 4.0.0 · 15 de septiembre, tarde: el jefe en el móvil, y lo que sólo se ve allí
+
+El jefe pasó por el móvil de Fran y aparecieron **dos fallos que el PC no podía enseñar**, más
+una tanda de ajustes de sitio. Todo esto va después de la sesión de abajo.
+
+### El dino no se veía en el móvil, y eran DOS cosas encadenadas
+
+**1. El shader se caía de la compilación.** El material se armaba en tiempo de ejecución con
+`Shader.Find("Universal Render Pipeline/Lit")`, y **Unity no mete en la build un shader que no
+use ningún asset**: el enlazador se lo llevaba, `Shader.Find` devolvía null y la malla se
+quedaba sin nada con que pintarse. El resto del teatro —decorado, reloj, barra, fruta— salía
+perfecto, que es lo que despistaba. El log del móvil lo cantaba de otros shaders: *«is not
+supported or has been stripped from the build»*.
+
+Arreglado con un `.mat` de verdad en `Resources/Boss/DinoBoss_Skin.mat`: así el shader entra por
+dependencia y no hay nada que buscar. **En Windows no pasaba**, y por eso pasó las capturas.
+
+**2. Salía facetado y azulado.** Otra cosa distinta, y también sólo del móvil: el perfil de
+calidad **Mobile usa dos huesos por vértice** y el de PC cuatro (medido: `QualitySettings` por
+perfil). Un bicho de 27 huesos con cuello y cola articulados los necesita justo en las curvas.
+Se fuerza `SkinnedMeshRenderer.quality = Bone4` en el propio renderer, que manda sobre el ajuste
+global y no cambia el presupuesto del resto del juego. De paso se quitó la compresión de malla,
+que cuantiza normales y UVs.
+
+> **La lección, para la próxima:** una compilación de Windows **no** valida el móvil. El
+> enlazador de shaders y los perfiles de calidad son distintos, y las dos cosas se manifiestan
+> como «no se ve» sin un solo error en consola.
+
+### El teatro se queda con la pantalla
+
+Un móvil de 20:9 deja unos **120 px libres por arriba y otros tantos por abajo** (`hudSlack`).
+Ahora el jefe se los queda los dos: el tablero y la botonera **bajan** (`boardDrop`) y el
+escenario crece hacia arriba y hacia abajo. Pasa de 110 px a **300**, y el bicho de 104 a ~285.
+
+Para eso `BoardTop` dejó de ser constante. Es estático porque `TileHome` y `TileCentre` lo son, y
+esos dos traducen casilla → pantalla: **todo** lo que se dibuja sobre el tablero sale de ahí, así
+que el tablero se mueve de una pieza. En un nivel normal `boardDrop` es cero a propósito: arriba
+no hay nada que quiera ese hueco y bajarlo sólo abriría un claro.
+
+El decorado se repintó a 2048×600 (300 px de diseño) y **se recorta en vertical con `uvRect`, no
+se estira**: la franja de abajo es el empedrado y lo que sobra es cielo.
+
+### El dino, a 30 segundos
+
+Lo pidió Fran. Y tiene una consecuencia que hubo que calcular: cruzando en 30 y durando 90, hay
+que empujarle **dos travesías enteras**. Con el empuje viejo salían 62 jugadas en minuto y medio
+—una cada 1,4 s, imposible—, así que **el empuje va doblado**: 31 jugadas, una cada 2,9 s. Ese
+número está elegido mirando el otro: los 15.000 puntos piden unas 45 jugadas, una cada 2,0 s. O
+sea que **quien va a ritmo de ganar por puntos frena al bicho de sobra**. El dino mete la prisa;
+el marcador sigue decidiendo.
+
+El **ciclo de andar se calcula**, no se elige: los pies siguen lo que el bicho se desplaza MÁS lo
+que corre la calle por debajo, y esa cuenta se rehace en cada móvil porque el tamaño depende de
+la pantalla.
+
+### Sitio de las cosas
+
+- **Pausa** con icono dibujado (dos barras, no el carácter tipográfico) arriba a la derecha. El
+  cartel ahora lleva reiniciar con su coste en rayos, salir, y el escaparate de lo que guarda el
+  nivel —reutilizando `LootBoard`, que ya apaga lo cobrado—.
+- **Mapa:** fuera la fila Decorar/Historia/Regalo/Ajustes (las cuatro están en Ciudad), fuera el
+  «¡BIENVENIDO A FRUTICITY!» y la línea de las estrellas. Y el espacio se recupera **de verdad**:
+  la banda del primer barrio no se queda vacía, **se colapsa** (`AreaTop`, paso variable), así
+  que el camino empieza pegado arriba. Con marco de madera y `RectMask2D.softness` de 24 px.
+- **Ajustes** vive sólo en Perfil.
+
+### La versión ya no se pisa
+
+`ProjectBuilder.ConfigureProject()` escribía `bundleVersion = "0.1.0"` en **cada** compilación:
+el `3.0.0` no llegó nunca a un APK y además el repositorio quedaba sucio tras cada build. Estaba
+anotado aquí como decisión pendiente de Fran, y la tomó al pedir la 4.0.0. La versión la manda
+ahora el `ProjectSettings`, que es un archivo versionado y con historia.
+
 ## Sesión del 15 de septiembre: el JEFE, y el 3D real por fin dentro del Canvas
 
 **Rama:** `efectos-combos-royal`. El décimo nivel de cada barrio —10, 20, 30, 40 y 50— deja de

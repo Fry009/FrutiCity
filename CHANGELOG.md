@@ -2,6 +2,34 @@
 
 Cambios reales por fase. Detalle y decisiones en `docs/fruticity-2/audit.md` y `docs/fruticity-2/phase-1.md`.
 
+## FrutiCity 4.0.0 · 2026-09-15 — El jefe en el móvil
+
+### Corregido
+- **El dino no se veía en Android.** `Shader.Find` no basta: Unity no mete en la compilación un
+  shader que no use ningún asset. El material pasa a ser un `.mat` en Resources
+  (`Boss/DinoBoss_Skin.mat`), y el shader entra por dependencia. En Windows no ocurría.
+- **El dino salía facetado en Android.** El perfil de calidad *Mobile* usa dos huesos por
+  vértice y el de PC cuatro. Se fuerza `SkinnedMeshRenderer.quality = Bone4` en el renderer, y
+  se quita la compresión de malla del FBX.
+- **`ConfigureProject()` dejaba de pisar `bundleVersion`.** Escribía "0.1.0" en cada
+  compilación, así que la versión del `ProjectSettings` no llegaba nunca al APK. Decisión que
+  estaba pendiente en el handoff desde la sesión de los barrios de diez.
+
+### Cambiado
+- **El teatro del jefe aprovecha la pantalla.** `BoardTop` deja de ser constante: en el jefe el
+  tablero y la botonera bajan y el escenario crece de 110 px a 300 (el bicho, de 104 a ~285). En
+  un 16:9 no hay holgura y nada se mueve. Decorado repintado a 2048×600 y recortado con `uvRect`
+  en vertical en vez de estirado.
+- **El dino cruza en 30 s y no en 60**, con el empuje por jugada DOBLADO para compensar: la
+  cuenta está en `MatchBoss.DinoCrossSeconds`. Y el ciclo de andar se calcula a partir de la
+  velocidad real del suelo, así que no patina en ninguna pantalla.
+- **Pausa** con icono dibujado arriba a la derecha, y con reiniciar (y su coste) y el botín del
+  nivel dentro.
+- **Mapa**: sin la fila de utilidades duplicada, sin el cartel de bienvenida y sin la línea de
+  las estrellas; con marco de madera y bordes difuminados. El paso entre barrios pasa a ser
+  variable (`AreaTop`) para que el espacio recuperado sea mapa y no un hueco vacío.
+- **Ajustes** se muda de Ciudad a Perfil.
+
 ## 2026-09-15 — El JEFE: un dinosaurio encima del tablero, y 3D real en el Canvas
 
 ### Nuevo
