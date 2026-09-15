@@ -2,6 +2,54 @@
 
 > Actualización posterior del 6 de septiembre: rediseño visual implementado, compilación Windows correcta (0 errores, 3 avisos), 78/78 pruebas y navegación comprobada en Play. Unity MCP está conectado y registrado en Codex. Consultar [revisión UX/UI](UX_UI_REVIEW.md) y [Unity MCP](UNITY_MCP.md). El resto de este documento conserva el estado anterior y sus recetas; las indicaciones de «UI sin mirar» ya están superadas.
 
+## FrutiCity 5.0.0 · 15 de septiembre: caras de sprite, y el destrozo que hice con git
+
+### LO PRIMERO, PORQUE ES UNA LECCIÓN CARA: no hagas `git checkout` de un asset de Unity
+
+Con el editor abierto, revertí `Assets/Settings/UniversalRenderPipelineGlobalSettings.asset`
+porque su diff parecía ruido del build. Unity recargó el asset y **perdió en memoria la lista de
+`SerializeReference`** que guarda sus ajustes de runtime —entre ellos los shaders del Blitter—.
+A partir de ahí, TODOS los APK salieron con URP incapaz de construirse: **16.452 errores por
+fotograma** de `Blitter:Initialize` con shaders nulos, y **nada en 3D se dibujaba**. El dino
+desapareció. La interfaz seguía viéndose porque el Canvas es Screen Space Overlay y no necesita
+URP, y eso fue lo que despistó: parecía un problema del dino.
+
+La reparación: restaurar el archivo **y forzar la reimportación del asset**
+(`AssetDatabase.ImportAsset(..., ForceUpdate)`), que es lo que vuelve a construir el grafo de
+referencias. Comprobado: `m_List` pasó de 0 a **38 entradas**, y en el móvil de 16.452 errores a
+**cero**.
+
+> **La regla, para la próxima:** un `.asset` de Unity que el editor tiene abierto se toca desde
+> el editor, no desde git. Si de verdad hay que revertirlo, se cierra Unity primero.
+
+### Caras de sprite: los FrutiFriends pasan a tener emociones
+
+Lo pidió Fran: «ojos y boca sprites, súper expresivas, así muestran emociones», con «brazos de
+palo negros con tres dedos de línea».
+
+- **`tools/caras_fruti.py`** genera ocho caras (idle, alegre, guiño, sorpresa, susto, duda,
+  enfado, triste), tres brazos, un pie y tres marcas de tebeo (gota de sudor, exclamación,
+  interrogación). Todo en PIL, a ×4 y reducido, como `caras_fresita.py`.
+- **El cuerpo sale de `Resources/Fruti3D/`**, que son las mismas frutas **sin cara**: las fichas
+  del tablero, ya renderizadas en Blender con las luces buenas. Así el cuerpo sigue siendo 3D de
+  verdad y no hay que borrarle la cara a nadie ni volver a modelar.
+- **`UI/FrutiChibi.cs`** arma el muñeco por piezas y deja cambiar la expresión en caliente. En el
+  nivel del jefe la fruta va de tranquila → dudosa → asustada → gritando según se acerca el
+  bicho, con los brazos arriba y su gota de sudor.
+- **La colocación de la cara es una tabla MEDIDA**, no ajustada a ojo: se midió la caja de alfa
+  de cada cuerpo y su franja más ancha. La fresa es un cono —cara alta y pequeña— y el plátano
+  una media luna —cara pequeña y corrida—; con la misma colocación para los seis, esos dos salían
+  con la cara flotando fuera de la fruta. La tabla está DOS veces, en el generador y en
+  `FrutiChibi`, y tienen que decir lo mismo.
+
+### Y el dino, ya bien del todo
+
+Gordote: mide un 10% más que su escenario y **asoma por encima del marco**, que es lo que pidió
+Fran («se sale un pelín, así da aspecto de grandote total»). Va atado al ESCENARIO y no a la
+holgura de pantalla —un fallo mío anterior: al crecer el teatro también hacia abajo, el bicho
+seguía creciendo sólo con la mitad de arriba y se quedaba pequeño dentro de una caja grande—. Con
+tope automático para que nunca llegue a la fila de monedas.
+
 ## FrutiCity 4.1.0 · 15 de septiembre, noche: por qué el dino se veía a parches
 
 Tres intentos hasta dar con la causa, y merece la pena dejar los tres escritos porque los dos

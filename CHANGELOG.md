@@ -2,6 +2,27 @@
 
 Cambios reales por fase. Detalle y decisiones en `docs/fruticity-2/audit.md` y `docs/fruticity-2/phase-1.md`.
 
+## FrutiCity 5.0.0 · 2026-09-15 — Caras de sprite, y URP reparado
+
+### Corregido
+- **URP no arrancaba en el APK**, y con él no se dibujaba nada en 3D (el dino desaparecía).
+  Causa: un `git checkout` de `UniversalRenderPipelineGlobalSettings.asset` con Unity abierto le
+  hizo perder en memoria la lista de `SerializeReference` con los shaders del Blitter. Reparado
+  restaurando el archivo **y forzando la reimportación**: de 16.452 errores por fotograma a cero.
+
+### Nuevo
+- **`tools/caras_fruti.py`**: ocho expresiones, tres brazos de palo con tres dedos, un pie y tres
+  marcas de tebeo (sudor, exclamación, interrogación), en sprites.
+- **`UI/FrutiChibi.cs`**: monta el muñeco por piezas —cuerpo 3D sin cara de `Fruti3D`, cara de
+  sprite, brazos de palo— y deja cambiar la emoción en mitad de la partida. Con bocadillo de
+  texto, que crece con la frase.
+- En el nivel del jefe, **la fruta cambia de cara según se acerca el bicho** y grita con los
+  brazos arriba.
+
+### Cambiado
+- El dino mide un 10% más que su escenario y **asoma por encima del marco**. Atado al escenario
+  y no a la holgura de pantalla, que era un fallo anterior.
+
 ## FrutiCity 4.1.0 · 2026-09-15 — El dino, ya bien
 
 ### Corregido
